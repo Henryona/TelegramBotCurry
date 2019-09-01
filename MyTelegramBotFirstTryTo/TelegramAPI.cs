@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using RestSharp;
 using Newtonsoft.Json;
 namespace MyTelegramBotFirstTryTo
@@ -51,6 +52,12 @@ namespace MyTelegramBotFirstTryTo
         public void sendMessage(string text, int chat_id)
         {
             sendApiRequest("sendMessage", $"chat_id={chat_id}&text={text}");
+        }
+        
+        public void sendMessage(List<string> text, int chat_id)
+        {
+            foreach (string part in text)
+                sendApiRequest("sendMessage", $"chat_id={chat_id}&text={part}");
         }
 
         public Update[] GetUpdates()
