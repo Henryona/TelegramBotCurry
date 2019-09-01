@@ -6,9 +6,11 @@
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="MyTelegramBotFirstTryTo" t="IncludeRecursive">
         <e p="MyTelegramBotFirstTryTo.csproj" t="IncludeRecursive" />
+        <e p="News.cs" t="Include" />
         <e p="Program.cs" t="Include" />
         <e p="TelegramAPI.cs" t="Include" />
         <e p="Utils.cs" t="Include" />
+        <e p="Weather.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

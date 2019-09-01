@@ -6,6 +6,12 @@ namespace MyTelegramBotFirstTryTo
 {
     public class TelegramAPI
     {
+        public class From
+        {
+            public int id { get; set; }
+            public string first_name { get; set; }
+        }
+
         public class Chat
         {
             public int id { get; set; }
@@ -16,6 +22,7 @@ namespace MyTelegramBotFirstTryTo
         {
             public Chat chat { get; set; }
             public string text { get; set; }
+            public From from { get; set; }
         }
 
         public class Update
@@ -28,14 +35,14 @@ namespace MyTelegramBotFirstTryTo
         {
             public Update[] result { get; set; }
         }
-        static String BotToken = System.IO.File.ReadAllText("/home/henryona/Документы/currybottoken")
+        static String BotToken = System.IO.File.ReadAllText("/home/henryona/Документы/curryBot/currybottoken")
                                     .Replace("\n", "");
         
         String API_URL = "https://api.telegram.org/bot" + BotToken + "/";
 
         RestClient RC = new RestClient();
 
-        private int last_update_id = 0;
+        private int last_update_id = 221585489;
         public TelegramAPI()
         {
             
@@ -54,7 +61,7 @@ namespace MyTelegramBotFirstTryTo
             foreach (var update in apiResult.result)
             {
                 Console.WriteLine($"Получен апдейт {update.update_id}, " + 
-                                  $"сообщение от {update.message.chat.first_name} " +
+                                  $"сообщение от {update.message.from.first_name} " +
                                   $"текст: {update.message.text}");
                 last_update_id = update.update_id + 1;
             }
