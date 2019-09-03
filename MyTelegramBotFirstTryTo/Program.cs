@@ -28,7 +28,7 @@ namespace MyTelegramBotFirstTryTo
             var job = new SimpleJob(
                 (scheduledTime) =>
                 {
-                    API.sendMessage("start", -258099164);
+                    API.sendMessage(MakeTemperature("Москва"), -258099164);
                 } //(MakeTemperature("Москва"), -258099164);            }
                 );
             var schedule = new CronSchedule("0 07 05 * * ? *"); // нужно писать на 3 часа меньше (если нужно 18 часов, то писать 15)
@@ -86,6 +86,10 @@ namespace MyTelegramBotFirstTryTo
                             Answers.Add(TypeInfo());
                         else if (question.Value ==  "MakeHoroscope()")
                             Answers.Add(MakeHoroscope(UserQuestion));
+                        else if (question.Value == "MakeQuote()")
+                            Answers.Add(MakeQuote());
+                        else if (question.Value == "MakeJoke()")
+                            Answers.Add(MakeJoke(UserQuestion));
                         else
                             Answers.Add(question.Value);
                     }
@@ -142,11 +146,30 @@ namespace MyTelegramBotFirstTryTo
             return horoscopeText;
         }
 
+        static string MakeQuote()
+        {
+            var QuoteApi = new Quote();
+            var quote = QuoteApi.getRandonQuote();
+            return quote;
+        }
+        
+        static string MakeJoke(string UserQuestion)
+        {
+            var words = UserQuestion.Split(' ');
+            var category = words[words.Length - 1];
+
+            var JokesApi = new Jokes();
+            var joke = JokesApi.getJokeOrStory(category);
+            return joke;
+        }
+
         static string TypeInfo()
         {
             return $"Команда для меня начинается с \"curry \" . \n После обращения можно вводить следующие запросы: \n" + 
-                   "\"привет\" - приветствие, \n \"какой день недели\" - я подскажу, какой день недели сегодня, \n \"какая погода в городе N\" - расскажу о погоде, \n " +
-                   "\"покажи новости\" - покажу немного новостей, \n \"нужна помощь\" - вызов хелпа :)";
+                   "\"привет\" \n \"какой день недели\" \n \"какая погода в городе N\" \n " +
+                   "\"покажи новости\" \n \"нужна помощь\" \n" +
+                   "\"расскажи гороскоп N\" \n \"покажи цитату\" \n" +
+                   "\" расскажи анекдот \" \n \" расскажи историю \" \n";
         }
     }
 }

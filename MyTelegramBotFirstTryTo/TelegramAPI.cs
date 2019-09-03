@@ -43,7 +43,7 @@ namespace MyTelegramBotFirstTryTo
 
         RestClient RC = new RestClient();
 
-        private int last_update_id = 221585541;
+        private int last_update_id = 221585557;
         public TelegramAPI()
         {
             

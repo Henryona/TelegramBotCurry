@@ -5,11 +5,13 @@
     <e p="$USER_HOME$/.Rider2019.2/system/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_MyTelegramBotFirstTryTo.-950864308.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="MyTelegramBotFirstTryTo" t="IncludeRecursive">
+        <e p="Horoscope.cs" t="Include" />
+        <e p="Jokes.cs" t="Include" />
         <e p="MyTelegramBotFirstTryTo.csproj" t="IncludeRecursive" />
         <e p="News.cs" t="Include" />
         <e p="Program.cs" t="Include" />
+        <e p="Quote.cs" t="Include" />
         <e p="TelegramAPI.cs" t="Include" />
-        <e p="Utils.cs" t="Include" />
         <e p="Weather.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
