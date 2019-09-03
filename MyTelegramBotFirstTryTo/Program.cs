@@ -4,6 +4,9 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using Newtonsoft.Json;
+using Chroniton;
+using Chroniton.Jobs;
+using Chroniton.Schedules;
 
 namespace MyTelegramBotFirstTryTo
 {
@@ -11,6 +14,7 @@ namespace MyTelegramBotFirstTryTo
     {
         static Dictionary<string, string> Questions;
         private static List<string> ListContent = new List<string>();
+        private static bool Flag = false;
 
         static void Main(string[] args)
         {
@@ -18,9 +22,20 @@ namespace MyTelegramBotFirstTryTo
             Questions = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuesAnJson);
             var ChatIDs = System.IO.File.ReadAllText("/home/henryona/Документы/curryBot/chat_ids").Replace("\n", "");
             var IdsList = ChatIDs.Split(' ');
-            
-            
             var API = new TelegramAPI();
+            
+            var singularity = Singularity.Instance;
+            var job = new SimpleJob(
+                (scheduledTime) =>
+                {
+                    API.sendMessage("start", -258099164);
+                } //(MakeTemperature("Москва"), -258099164);            }
+                );
+            var schedule = new CronSchedule("0 07 05 * * ? *"); // нужно писать на 3 часа меньше (если нужно 18 часов, то писать 15)
+            var scheduledJob = singularity.ScheduleJob(
+                schedule, job, DateTime.UtcNow.AddMinutes(62)); //starts immediately
+            singularity.Start();
+            
 
             while (true)
             {
@@ -69,6 +84,8 @@ namespace MyTelegramBotFirstTryTo
                         }
                         else if (question.Value == "TypeInfo()")
                             Answers.Add(TypeInfo());
+                        else if (question.Value ==  "MakeHoroscope()")
+                            Answers.Add(MakeHoroscope(UserQuestion));
                         else
                             Answers.Add(question.Value);
                     }
@@ -113,6 +130,16 @@ namespace MyTelegramBotFirstTryTo
             var NewsApi = new News();
             var newsCollumn = NewsApi.getNews();
             return newsCollumn;
+        }
+
+        static string MakeHoroscope(string UserQuestion)
+        {
+            var words = UserQuestion.Split(' ');
+            var signOfZodiac = words[words.Length - 1];
+            
+            var HoroscopeApi = new Horoscope();
+            var horoscopeText = HoroscopeApi.getHororscopeBySign(signOfZodiac);
+            return horoscopeText;
         }
 
         static string TypeInfo()
