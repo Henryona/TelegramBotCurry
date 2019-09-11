@@ -36,29 +36,26 @@ namespace MyTelegramBotFirstTryTo
         {
             public Update[] result { get; set; }
         }
+        
         static String BotToken = System.IO.File.ReadAllText("/home/henryona/Документы/curryBot/currybottoken")
                                     .Replace("\n", "");
-        
         String API_URL = "https://api.telegram.org/bot" + BotToken + "/";
-
         RestClient RC = new RestClient();
 
         private int last_update_id = 221585557;
         public TelegramAPI()
-        {
-            
-        }
+        { }
 
         public void sendMessage(string text, int chat_id)
         {
             sendApiRequest("sendMessage", $"chat_id={chat_id}&text={text}");
-        }
+        } // method sendMessage with answer
         
         public void sendMessage(List<string> text, int chat_id)
         {
             foreach (string part in text)
                 sendApiRequest("sendMessage", $"chat_id={chat_id}&text={part}");
-        }
+        } // method sendMessage with List of answers
 
         public Update[] GetUpdates()
         {
@@ -74,13 +71,14 @@ namespace MyTelegramBotFirstTryTo
             }
 
             return apiResult.result;
-        }
+        } // method GetUpdates
+        
         public string sendApiRequest(String ApiMethod, string Params)
         {
             var URL = API_URL + ApiMethod + "?" + Params;
             var Request = new RestRequest(URL);
             var Response = RC.Get(Request);
             return Response.Content;
-        }
-    }
+        } // method sendApiRequest
+    } // class TelegramAPI
 }

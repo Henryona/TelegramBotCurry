@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="$USER_HOME$/.Rider2019.2/system/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/.Rider2019.2/system/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_MyTelegramBotFirstTryTo.-950864308.00" t="ExcludeRecursive" />
-    <e p="$PROJECT_DIR$" t="IncludeFlat">
+    <e p="C:\Users\KseniaPC\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\KseniaPC\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_MyTelegramBotFirstTryTo.-1433616434.00" t="ExcludeRecursive" />
+    <e p="C:\Users\KseniaPC\RiderProjects\TelegramBotCurry" t="IncludeFlat">
       <e p="MyTelegramBotFirstTryTo" t="IncludeRecursive">
-        <e p="Horoscope.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CONSTANTS.cs" t="Include" />
+        <e p="Horoscopes.cs" t="Include" />
         <e p="Jokes.cs" t="Include" />
+        <e p="MakingMethods.cs" t="Include" />
         <e p="MyTelegramBotFirstTryTo.csproj" t="IncludeRecursive" />
         <e p="News.cs" t="Include" />
-        <e p="Program.cs" t="Include" />
-        <e p="Quote.cs" t="Include" />
-        <e p="TelegramAPI.cs" t="Include" />
-        <e p="Weather.cs" t="Include" />
-        <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
@@ -21,7 +19,11 @@
             </e>
           </e>
         </e>
+        <e p="Program.cs" t="Include" />
         <e p="questions.json" t="Include" />
+        <e p="Quotes.cs" t="Include" />
+        <e p="TelegramAPI.cs" t="Include" />
+        <e p="WeatherForecasts.cs" t="Include" />
       </e>
       <e p="MyTelegramBotFirstTryTo.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />

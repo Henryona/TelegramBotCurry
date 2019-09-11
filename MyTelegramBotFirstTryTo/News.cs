@@ -25,19 +25,14 @@ namespace MyTelegramBotFirstTryTo
         private RestClient RC = new RestClient();
 
         public News()
-        {
-        }
+        { }
 
         public List<string> getNews()
         {
             var URL = FINAL_URL;
-            
             var Request = new RestRequest(URL);
-
             var Response = RC.Get(Request);
-
             var Data = JsonConvert.DeserializeObject<NewsData>(Response.Content);
-
             List<string> NewsList = new List<string>();
 
             foreach (var newsArticle in Data.articles)
@@ -46,6 +41,6 @@ namespace MyTelegramBotFirstTryTo
             }
                 
             return NewsList;
-        }
-    }
+        } // method getNews
+    } // class News
 }

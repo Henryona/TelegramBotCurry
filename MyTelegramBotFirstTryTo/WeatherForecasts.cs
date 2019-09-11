@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace MyTelegramBotFirstTryTo
 {
-    public class Weather
+    public class WeatherForecasts
     {
         public class WeatherData
         {
@@ -27,24 +27,19 @@ namespace MyTelegramBotFirstTryTo
         const string FINAL_URL = API_URL + "?key=" + API_KEY + "&lang=ru&q=";
         private RestClient RC = new RestClient();
 
-        public Weather()
-        {
-        }
+        public WeatherForecasts()
+        { }
 
         public string getWeatherInCity(string city)
         {
             var URL = FINAL_URL + city;
-            
             var Request = new RestRequest(URL);
-
             var Response = RC.Get(Request);
-
             var Data = JsonConvert.DeserializeObject<WeatherData>(Response.Content);
-
             var Temp = (int) Data.current.temp_c;
 
             return $"В городе {city.Substring(0, 1).ToUpper() + city.Substring(1, city.Length - 1)} сейчас {Data.current.condition.text}, температура воздуха {Temp}";
-        }
+        } // method getWeatherInCity
 
-    }
+    } // class WeatherForecasts
 }

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using Newtonsoft.Json;
-using Chroniton;
-using Chroniton.Jobs;
-using Chroniton.Schedules;
 
 namespace MyTelegramBotFirstTryTo
 {
@@ -14,29 +10,25 @@ namespace MyTelegramBotFirstTryTo
     {
         static Dictionary<string, string> Questions;
         private static List<string> ListContent = new List<string>();
-        private static bool Flag = false;
-
         static void Main(string[] args)
         {
-            var QuesAnJson = System.IO.File.ReadAllText("/home/henryona/RiderProjects/MyTelegramBotFirstTryTo/MyTelegramBotFirstTryTo/questions.json");
-            Questions = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuesAnJson);
-            var ChatIDs = System.IO.File.ReadAllText("/home/henryona/Документы/curryBot/chat_ids").Replace("\n", "");
-            var IdsList = ChatIDs.Split(' ');
+            var CONST = new CONSTANTS();
+            var Methods = new AuxiliaryMethods();
             var API = new TelegramAPI();
             
-            var singularity = Singularity.Instance;
-            var job = new SimpleJob(
-                (scheduledTime) =>
-                {
-                    API.sendMessage(MakeTemperature("Москва"), -258099164);
-                } //(MakeTemperature("Москва"), -258099164);            }
-                );
-            var schedule = new CronSchedule("0 07 05 * * ? *"); // нужно писать на 3 часа меньше (если нужно 18 часов, то писать 15)
-            var scheduledJob = singularity.ScheduleJob(
-                schedule, job, DateTime.UtcNow.AddMinutes(62)); //starts immediately
-            singularity.Start();
+            // получение списка вопросов из JSON файла
+            var QuesAnJson = System.IO.File.ReadAllText( CONST.QU_AN_JSON_PATH);
+            Questions = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuesAnJson);
+            
+            // получение списка id разрешенных чатов 
+            var ChatIDs = System.IO.File.ReadAllText(CONST.CHAT_ID_FILE_PATH).Replace("\n", "");
+            var IdsList = ChatIDs.Split(' ');
+
+            // добавление сообщения погоды по расписанию
+            Methods.MakeSchedule(CONST.CITY, CONST.CHAT_ID);
             
 
+            // ожидание бота, получение запросов и ответ на них
             while (true)
             {
                 Thread.Sleep(1000);
@@ -47,129 +39,93 @@ namespace MyTelegramBotFirstTryTo
                     {
                         var userName = update.message.from.first_name;
                         var userId = update.message.from.id;
-                        //Console.WriteLine(userId);
                         var Question = update.message.text;
                         var Answer = AnswerQuestion(Question, userName, userId);
+                        
+                        //  большая часть ответов - обычный string, посылаем его
                         API.sendMessage(Answer, update.message.chat.id); 
+                        // некоторые ответы записаны в список, посылаем все его элементы
                         if (ListContent.Count != 0)
                             API.sendMessage(ListContent, update.message.chat.id);
                     }
                 }
             }
             
-        }
+        } // method Main
 
+        // формирование ответа
         static string AnswerQuestion(string UserQuestion, string userName, int userId)
         {
             List<String> Answers = new List<String>();
+            var Methods = new AuxiliaryMethods();
+            var CONST = new CONSTANTS();
 
             UserQuestion = UserQuestion.ToLower();
 
-            if (UserQuestion.StartsWith("curry"))
+            // вопрос должен быть адресован боту: начинаться с его имени
+            if (UserQuestion.StartsWith(CONST.BOT_NAME))
             {
                 foreach (var question in Questions)
                 {
+                    // проверка, что в вопросе содержатся необходимые ключи и добавление соответствующих ответов
                     if (UserQuestion.Contains((question.Key)))
                     {
+                        /*
                         if (question.Value == "MakeDay()")
-                            Answers.Add(MakeDay());
+                            Answers.Add(Methods.MakeDay());
                         else if (question.Value == "MakeTemperature()")
-                            Answers.Add(MakeTemperature(UserQuestion));
+                            Answers.Add(Methods.MakeTemperature(UserQuestion));
                         else if (question.Value == "MakeGreetings()")
-                            Answers.Add(MakeGreetings(userId, userName));
+                            Answers.Add(Methods.MakeGreetings(userId, userName));
                         else if (question.Value == "MakeNews()")
                         {
                             Answers.Add("Вот тут немного актуальных новостей");
-                            ListContent = MakeNews();
+                            ListContent = Methods.MakeNews();
                         }
-                        else if (question.Value == "TypeInfo()")
-                            Answers.Add(TypeInfo());
+                        else if (question.Value == "MakeInfo()")
+                            Answers.Add(Methods.MakeInfo());
                         else if (question.Value ==  "MakeHoroscope()")
-                            Answers.Add(MakeHoroscope(UserQuestion));
+                            Answers.Add(Methods.MakeHoroscope(UserQuestion));
                         else if (question.Value == "MakeQuote()")
-                            Answers.Add(MakeQuote());
+                            Answers.Add(Methods.MakeQuote());
                         else if (question.Value == "MakeJoke()")
-                            Answers.Add(MakeJoke(UserQuestion));
+                            Answers.Add(Methods.MakeJoke(UserQuestion));
                         else
-                            Answers.Add(question.Value);
+                            Answers.Add(question.Value); */
+                        
+                        switch (question.Value)
+                        {
+                            case "MakeDay()" : Answers.Add(Methods.MakeDay());
+                                break;
+                            case "MakeTemperature()" : Answers.Add(Methods.MakeTemperature(UserQuestion));
+                                break;
+                            case "MakeGreetings()" : Answers.Add(Methods.MakeGreetings(userId, userName));
+                                break;
+                            case "MakeNews()" : {
+                                Answers.Add(CONST.NEWS_ANSWER);
+                                ListContent = Methods.MakeNews();
+                            }
+                                break;
+                            case "MakeInfo()" : Answers.Add(Methods.MakeInfo());
+                                break;
+                            case "MakeHoroscope()" : Answers.Add(Methods.MakeHoroscope(UserQuestion));
+                                break;
+                            case "MakeQuote()" : Answers.Add(Methods.MakeQuote());
+                                break;
+                            case "MakeJoke()" : Answers.Add(Methods.MakeJoke(UserQuestion));
+                                break;
+                            default : Answers.Add(question.Value);
+                                break;
+                        }
                     }
                 }
              
+                // ни одного ответа не удалось подобрать- был задан некорректный вопрос
                 if (Answers.Count == 0)
                     Answers.Add("Мне не совсем ясен твой вопрос"); 
             }
             return string.Join(", ", Answers);
-        }
-
-
-        static string MakeDay()
-        {
-            CultureInfo ci = CultureInfo.GetCultureInfo("en-US") ;
-            var dayOfWeek = DateTime.Now.ToString("dddd", ci);
-            return ($"It's {dayOfWeek} my dudes!");
-        }
-
-        static string MakeTemperature(string UserQuestion)
-        {
-            var words = UserQuestion.Split(' ');
-            var city = words[words.Length - 1];
-            
-            var WeatherApi = new Weather();
-            var forecast = WeatherApi.getWeatherInCity(city);
-            return forecast;
-        }
-
-        static string MakeGreetings(int userId, string userName)
-        {
-            string callName = userName;
-            if (userId == 138200931)
-                callName = "Ксюша";
-            else if (userId == 162374704)
-                callName = "Влад";
-            return ($"Приветствую, {callName} :)");
-        }
-
-        static List<string> MakeNews()
-        {
-            var NewsApi = new News();
-            var newsCollumn = NewsApi.getNews();
-            return newsCollumn;
-        }
-
-        static string MakeHoroscope(string UserQuestion)
-        {
-            var words = UserQuestion.Split(' ');
-            var signOfZodiac = words[words.Length - 1];
-            
-            var HoroscopeApi = new Horoscope();
-            var horoscopeText = HoroscopeApi.getHororscopeBySign(signOfZodiac);
-            return horoscopeText;
-        }
-
-        static string MakeQuote()
-        {
-            var QuoteApi = new Quote();
-            var quote = QuoteApi.getRandonQuote();
-            return quote;
-        }
+        } // method AnswerQuestion
         
-        static string MakeJoke(string UserQuestion)
-        {
-            var words = UserQuestion.Split(' ');
-            var category = words[words.Length - 1];
-
-            var JokesApi = new Jokes();
-            var joke = JokesApi.getJokeOrStory(category);
-            return joke;
-        }
-
-        static string TypeInfo()
-        {
-            return $"Команда для меня начинается с \"curry \" . \n После обращения можно вводить следующие запросы: \n" + 
-                   "\"привет\" \n \"какой день недели\" \n \"какая погода в городе N\" \n " +
-                   "\"покажи новости\" \n \"нужна помощь\" \n" +
-                   "\"расскажи гороскоп N\" \n \"покажи цитату\" \n" +
-                   "\" расскажи анекдот \" \n \" расскажи историю \" \n";
-        }
-    }
+    } // class Program
 }

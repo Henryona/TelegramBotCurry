@@ -40,27 +40,23 @@ namespace MyTelegramBotFirstTryTo
                     break;
             }
             var URL = FINAL_URL + category;
-            
             var Request = new RestRequest(URL);
-
             var Response = RC.Get(Request);
             
             XmlSerializer serializer = 
                 new XmlSerializer(typeof(Jokes.Root));
 
-            
+            // у сервера проблемы с кодировкой- исправление
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            var encoding = Encoding.GetEncoding(1251); //1251);
-            
+            var encoding = Encoding.GetEncoding(1251);
             var enc1251 = encoding.GetString(Response.RawBytes);
 
-            //var ms = new MemoryStream(Response.RawBytes);
             var Data = (Root)serializer.Deserialize(new StringReader(enc1251));
             
             return Data.content;
-        }
+        } // method getJokeOrStory
         
         public Jokes()
         {}
-    }
+    } // class Jokes
 }

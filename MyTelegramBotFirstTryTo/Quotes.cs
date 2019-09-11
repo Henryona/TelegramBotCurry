@@ -3,7 +3,7 @@ using RestSharp;
 
 namespace MyTelegramBotFirstTryTo
 {
-    public class Quote
+    public class Quotes
     {
 
         public class QuoteData
@@ -20,17 +20,14 @@ namespace MyTelegramBotFirstTryTo
         public string getRandonQuote()
         {
             var URL = FINAL_URL;
-            
             var Request = new RestRequest(URL);
-
             var Response = RC.Get(Request);
-
-            var Data = JsonConvert.DeserializeObject<Quote.QuoteData>(Response.Content);
+            var Data = JsonConvert.DeserializeObject<Quotes.QuoteData>(Response.Content);
             
             return Data.quoteText + " \n" + Data.quoteAuthor;
             ;
-        }
-        public Quote()
+        } // method getRandonQuote
+        public Quotes()
         {}
-    }
+    } // class Quotes
 }

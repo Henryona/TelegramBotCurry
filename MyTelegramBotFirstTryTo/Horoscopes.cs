@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using Chroniton.Schedules;
 using RestSharp;
 using Newtonsoft.Json;
 
@@ -50,8 +51,7 @@ namespace MyTelegramBotFirstTryTo
         
         
         public Horoscope()
-        {
-        }
+        { }
         
         const string API_URL = "https://ignio.com/r/export/utf/xml/daily/";
         const string API_HORO_TYPE = "cook";
@@ -62,7 +62,7 @@ namespace MyTelegramBotFirstTryTo
         public string getHororscopeBySign(string signOfZodiac)
         {
             var URL = FINAL_URL;
-            
+            var CONST = new CONSTANTS();
             var Request = new RestRequest(URL);
             var Response = RC.Get(Request);
 
@@ -86,12 +86,9 @@ namespace MyTelegramBotFirstTryTo
                 case "козерог" : return Data.capricorn.today;
                 case "водолей" : return Data.aquarius.today;
                 case "рыбы" : return Data.pisces.today;
-                default : return "скажи мне, кто ты по гороскопу!";
+                default : return CONST.UNKNOWN_ZODIAC;
             }
-
             
-        }
-        
-        
-    }
+        } // method getHororscopeBySign
+    } //class Horoscope
 }
