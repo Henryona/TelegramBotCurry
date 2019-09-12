@@ -20,9 +20,9 @@ namespace MyTelegramBotFirstTryTo
             var QuesAnJson = System.IO.File.ReadAllText( CONST.QU_AN_JSON_PATH);
             Questions = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuesAnJson);
             
-            // получение списка id разрешенных чатов 
+            /*// получение списка id разрешенных чатов 
             var ChatIDs = System.IO.File.ReadAllText(CONST.CHAT_ID_FILE_PATH).Replace("\n", "");
-            var IdsList = ChatIDs.Split(' ');
+            var IdsList = ChatIDs.Split(' '); */
 
             // добавление сообщения погоды по расписанию
             Methods.MakeSchedule(CONST.CITY, CONST.CHAT_ID);
@@ -35,8 +35,8 @@ namespace MyTelegramBotFirstTryTo
                 var Updates = API.GetUpdates();
                 foreach (var update in Updates)
                 {
-                    if (IdsList.Contains(update.message.chat.id.ToString()))
-                    {
+                    /*if (IdsList.Contains(update.message.chat.id.ToString()))
+                    { */
                         var userName = update.message.from.first_name;
                         var userId = update.message.from.id;
                         var Question = update.message.text;
@@ -47,7 +47,7 @@ namespace MyTelegramBotFirstTryTo
                         // некоторые ответы записаны в список, посылаем все его элементы
                         if (ListContent.Count != 0)
                             API.sendMessage(ListContent, update.message.chat.id);
-                    }
+                    //}
                 }
             }
             
