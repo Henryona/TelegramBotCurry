@@ -17,7 +17,7 @@ namespace MyTelegramBotFirstTryTo
             var API = new TelegramAPI();
             
             // получение списка вопросов из JSON файла
-            var QuesAnJson = System.IO.File.ReadAllText( CONST.QU_AN_JSON_PATH);
+            var QuesAnJson = System.IO.File.ReadAllText( CONST.QU_AN_JSON_PATH_WIN);
             Questions = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuesAnJson);
             
             /*// получение списка id разрешенных чатов 
@@ -27,12 +27,13 @@ namespace MyTelegramBotFirstTryTo
             // добавление сообщения погоды по расписанию
             Methods.MakeSchedule(CONST.CITY, CONST.CHAT_ID);
             
+            var token = API.getApiUrl(CONST.CURRY_BOT_TOKEN_PATH_WIN);
 
             // ожидание бота, получение запросов и ответ на них
             while (true)
             {
                 Thread.Sleep(1000);
-                var Updates = API.GetUpdates();
+                var Updates = API.GetUpdates(token);
                 foreach (var update in Updates)
                 {
                     /*if (IdsList.Contains(update.message.chat.id.ToString()))
@@ -43,10 +44,10 @@ namespace MyTelegramBotFirstTryTo
                         var Answer = AnswerQuestion(Question, userName, userId);
                         
                         //  большая часть ответов - обычный string, посылаем его
-                        API.sendMessage(Answer, update.message.chat.id); 
+                        API.sendMessage(token,Answer, update.message.chat.id); 
                         // некоторые ответы записаны в список, посылаем все его элементы
                         if (ListContent.Count != 0)
-                            API.sendMessage(ListContent, update.message.chat.id);
+                            API.sendMessage(token, ListContent, update.message.chat.id);
                     //}
                 }
             }

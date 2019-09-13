@@ -2,9 +2,13 @@
 {
     public class CONSTANTS
     {
-        public string QU_AN_JSON_PATH =
-            "/home/henryona/RiderProjects/MyTelegramBotFirstTryTo/MyTelegramBotFirstTryTo/questions.json";
+        public string QU_AN_JSON_PATH_LIN =
+            @"/home/henryona/RiderProjects/MyTelegramBotFirstTryTo/MyTelegramBotFirstTryTo/questions.json";
+        public string QU_AN_JSON_PATH_WIN =
+            @"C:\Users\KseniaPC\RiderProjects\TelegramBotCurry\MyTelegramBotFirstTryTo\questions.json";
         public string CHAT_ID_FILE_PATH = "/home/henryona/Документы/curryBot/chat_ids";
+        public string CURRY_BOT_TOKEN_PATH_WIN = @"C:\Users\KseniaPC\Documents\currybottoken";
+        public string CURRY_BOT_TOKEN_PATH_LIN = "/home/henryona/Документы/curryBot/currybottoken";
         public string CITY = "Москва";
         public string BOT_NAME = "curry";
         public string NEWS_ANSWER = "Вот тут немного актуальных новостей";

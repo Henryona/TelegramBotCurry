@@ -12,12 +12,13 @@ namespace MyTelegramBotFirstTryTo
         public void MakeSchedule(string option, int chat_id)
         {
             var API = new TelegramAPI();
-            //var Main = new Program();
+            var CONST = new CONSTANTS();
             var singularity = Singularity.Instance;
             var job = new SimpleJob(
                 (scheduledTime) =>
                 {
-                    API.sendMessage(MakeTemperature(option), chat_id);
+                    var token = API.getApiUrl(CONST.CURRY_BOT_TOKEN_PATH_WIN);
+                    API.sendMessage(token, MakeTemperature(option), chat_id);
                 } 
             );
             var schedule = new CronSchedule("0 07 05 * * ? *"); // нужно писать на 3 часа меньше (если нужно 18 часов, то писать 15)
