@@ -37,7 +37,9 @@ namespace MyTelegramBotFirstTryTo
             public Update[] result { get; set; }
         }
         
-        static String BotToken = System.IO.File.ReadAllText("/home/henryona/Документы/curryBot/currybottoken")
+        //static String BotToken = System.IO.File.ReadAllText("/home/henryona/Документы/curryBot/currybottoken")
+                                    //.Replace("\n", "");
+        static String BotToken = System.IO.File.ReadAllText("C:\Users\KseniaPC\Documents\currybottoken")
                                     .Replace("\n", "");
         String API_URL = "https://api.telegram.org/bot" + BotToken + "/";
         RestClient RC = new RestClient();
