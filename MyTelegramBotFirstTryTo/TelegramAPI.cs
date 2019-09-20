@@ -97,6 +97,7 @@ namespace MyTelegramBotFirstTryTo
         {
             var URL = API_URL + ApiMethod + "?" + Params;
             var Request = new RestRequest(URL);
+            RC.Proxy = new WebProxy("proxy.digitalresistance.dog", 443);
             var Response = RC.Get(Request);
             return Response.Content;
         } // method sendApiRequest
