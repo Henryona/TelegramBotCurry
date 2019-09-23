@@ -10,6 +10,27 @@ namespace MyTelegramBotFirstTryTo
     {
         static Dictionary<string, string> Questions;
         private static List<string> ListContent = new List<string>();
+        
+        public interface IKeyboardMarkup
+        {
+        }
+
+        public class KeyboardButton
+        {
+            [JsonProperty("text")] public string Text { get; set; }
+
+            public KeyboardButton(string text)
+            {
+                Text = text;
+            }
+        }
+
+        public class ReplyKeyBoardMarkup : IKeyboardMarkup
+        {
+            [JsonProperty("keyboard")] public KeyboardButton[][] Keyboard { get; set; }
+            [JsonProperty("resize_keyboard")] public bool ResizeKeyboard { get; set; } = true;
+            [JsonProperty("one_time_keyboard")] public bool OneTimeKeyboard { get; set; } = true;
+        }
         static void Main(string[] args)
         {
             var CONST = new CONSTANTS();
@@ -25,7 +46,7 @@ namespace MyTelegramBotFirstTryTo
             var IdsList = ChatIDs.Split(' '); */
 
             // добавление сообщения погоды по расписанию
-            Methods.MakeSchedule(CONST.CITY, CONST.CHAT_ID);
+            //Methods.MakeSchedule(CONST.CITY, CONST.CHAT_ID);
             
             var token = API.getApiUrl(CONST.CURRY_BOT_TOKEN_PATH_WIN);
 
@@ -43,11 +64,22 @@ namespace MyTelegramBotFirstTryTo
                         var Question = update.message.text;
                         var Answer = AnswerQuestion(Question, userName, userId);
                         
+                        var keyboardMarkUp = new ReplyKeyBoardMarkup();
+                        keyboardMarkUp.Keyboard = new KeyboardButton[][]
+                        {
+                            new KeyboardButton[] {new KeyboardButton("curry привет"), new KeyboardButton("curry какой день недели")},
+                            new KeyboardButton[] {new KeyboardButton("curry какая погода в городе Москва"), new KeyboardButton("curry покажи новости") },
+                            new KeyboardButton[] {new KeyboardButton("curry нужна помощь"), new KeyboardButton("curry расскажи гороскоп") },
+                            new KeyboardButton[] {new KeyboardButton("curry покажи цитату"), new KeyboardButton("curry расскажи анекдот") },
+                            new KeyboardButton[] {new KeyboardButton("curry расскажи историю") },
+                        };
+                        string keyboard = JsonConvert.SerializeObject(keyboardMarkUp);
+                        
                         //  большая часть ответов - обычный string, посылаем его
-                        API.sendMessage(token,Answer, update.message.chat.id); 
+                        API.sendMessage(token,Answer, update.message.chat.id, keyboard); 
                         // некоторые ответы записаны в список, посылаем все его элементы
                         if (ListContent.Count != 0)
-                            API.sendMessage(token, ListContent, update.message.chat.id);
+                            API.sendMessage(token, ListContent, update.message.chat.id, keyboard);
                     //}
                 }
             }
@@ -71,29 +103,6 @@ namespace MyTelegramBotFirstTryTo
                     // проверка, что в вопросе содержатся необходимые ключи и добавление соответствующих ответов
                     if (UserQuestion.Contains((question.Key)))
                     {
-                        /*
-                        if (question.Value == "MakeDay()")
-                            Answers.Add(Methods.MakeDay());
-                        else if (question.Value == "MakeTemperature()")
-                            Answers.Add(Methods.MakeTemperature(UserQuestion));
-                        else if (question.Value == "MakeGreetings()")
-                            Answers.Add(Methods.MakeGreetings(userId, userName));
-                        else if (question.Value == "MakeNews()")
-                        {
-                            Answers.Add("Вот тут немного актуальных новостей");
-                            ListContent = Methods.MakeNews();
-                        }
-                        else if (question.Value == "MakeInfo()")
-                            Answers.Add(Methods.MakeInfo());
-                        else if (question.Value ==  "MakeHoroscope()")
-                            Answers.Add(Methods.MakeHoroscope(UserQuestion));
-                        else if (question.Value == "MakeQuote()")
-                            Answers.Add(Methods.MakeQuote());
-                        else if (question.Value == "MakeJoke()")
-                            Answers.Add(Methods.MakeJoke(UserQuestion));
-                        else
-                            Answers.Add(question.Value); */
-                        
                         switch (question.Value)
                         {
                             case "MakeDay()" : Answers.Add(Methods.MakeDay());

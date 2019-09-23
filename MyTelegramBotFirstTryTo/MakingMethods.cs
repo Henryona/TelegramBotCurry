@@ -9,7 +9,7 @@ namespace MyTelegramBotFirstTryTo
 {
     public class AuxiliaryMethods
     {
-        public void MakeSchedule(string option, int chat_id)
+        /*public void MakeSchedule(string option, int chat_id)
         {
             var API = new TelegramAPI();
             var CONST = new CONSTANTS();
@@ -25,7 +25,7 @@ namespace MyTelegramBotFirstTryTo
             var scheduledJob = singularity.ScheduleJob(
                 schedule, job, false); //DateTime.UtcNow.AddMinutes(62));
             singularity.Start();
-        } // method MakeSchedule
+        } */ // method MakeSchedule
         
         public string MakeTemperature(string UserQuestion)
         {
