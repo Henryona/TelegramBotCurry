@@ -27,7 +27,7 @@ namespace MyTelegramBotFirstTryTo
             singularity.Start();
         } */ // method MakeSchedule
         
-        public string MakeTemperature(string UserQuestion)
+        public static string MakeTemperature(string UserQuestion)
         {
             var words = UserQuestion.Split(' ');
             var city = words[words.Length - 1];
@@ -37,14 +37,14 @@ namespace MyTelegramBotFirstTryTo
             return forecast;
         } // method MakeTemperature
 
-        public string MakeDay()
+        public static string MakeDay()
         {
             CultureInfo ci = CultureInfo.GetCultureInfo("en-US") ;
             var dayOfWeek = DateTime.Now.ToString("dddd", ci);
             return ($"It's {dayOfWeek} my dudes!");
         } // method MakeDay
 
-        public string MakeGreetings(int userId, string userName)
+        public static string MakeGreetings(int userId, string userName)
         {
             string callName = userName;
             if (userId == 138200931)
@@ -54,14 +54,14 @@ namespace MyTelegramBotFirstTryTo
             return ($"Приветствую, {callName} :)");
         } // method MakeGreetings
 
-        public List<string> MakeNews()
+        public static List<string> MakeNews()
         {
             var NewsApi = new News();
             var newsCollumn = NewsApi.getNews();
             return newsCollumn;
         } // method MakeNews
 
-        public string MakeHoroscope(string UserQuestion)
+        public static string MakeHoroscope(string UserQuestion)
         {
             var words = UserQuestion.Split(' ');
             var signOfZodiac = words[words.Length - 1];
@@ -71,14 +71,14 @@ namespace MyTelegramBotFirstTryTo
             return horoscopeText;
         } // method MakeHoroscope
 
-        public string MakeQuote()
+        public static string MakeQuote()
         {
             var QuoteApi = new Quotes();
             var quote = QuoteApi.getRandonQuote();
             return quote;
         } // method MakeQuote
         
-        public string MakeJoke(string UserQuestion)
+        public static string MakeJoke(string UserQuestion)
         {
             var words = UserQuestion.Split(' ');
             var category = words[words.Length - 1];
@@ -88,7 +88,7 @@ namespace MyTelegramBotFirstTryTo
             return joke;
         } // method MakeJoke
 
-        public string MakeInfo()
+        public static string MakeInfo()
         {
             var CONST = new CONSTANTS();
             return CONST.INFO;

@@ -3,7 +3,7 @@
     public class CONSTANTS
     {
         public string QU_AN_JSON_PATH_LIN =
-            @"/home/henryona/RiderProjects/MyTelegramBotFirstTryTo/MyTelegramBotFirstTryTo/questions.json";
+            @"/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/questions.json";
         public string QU_AN_JSON_PATH_WIN =
             @"C:\Users\KseniaPC\RiderProjects\TelegramBotCurry\MyTelegramBotFirstTryTo\questions.json";
         public string CHAT_ID_FILE_PATH = "/home/henryona/Документы/curryBot/chat_ids";

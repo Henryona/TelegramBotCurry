@@ -6,9 +6,9 @@ using Newtonsoft.Json;
 
 namespace MyTelegramBotFirstTryTo
 {
-    class Program
+    public class Program
     {
-        static Dictionary<string, string> Questions;
+        public static Dictionary<string, string> Questions;
         private static List<string> ListContent = new List<string>();
         
         public interface IKeyboardMarkup
@@ -34,11 +34,11 @@ namespace MyTelegramBotFirstTryTo
         static void Main(string[] args)
         {
             var CONST = new CONSTANTS();
-            var Methods = new AuxiliaryMethods();
+            //var Methods = new AuxiliaryMethods();
             var API = new TelegramAPI();
             
             // получение списка вопросов из JSON файла
-            var QuesAnJson = System.IO.File.ReadAllText( CONST.QU_AN_JSON_PATH_WIN);
+            var QuesAnJson = System.IO.File.ReadAllText( CONST.QU_AN_JSON_PATH_LIN);
             Questions = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuesAnJson);
             
             /*// получение списка id разрешенных чатов 
@@ -48,7 +48,7 @@ namespace MyTelegramBotFirstTryTo
             // добавление сообщения погоды по расписанию
             //Methods.MakeSchedule(CONST.CITY, CONST.CHAT_ID);
             
-            var token = API.getApiUrl(CONST.CURRY_BOT_TOKEN_PATH_WIN);
+            var token = API.getApiUrl(CONST.CURRY_BOT_TOKEN_PATH_LIN);
 
             // ожидание бота, получение запросов и ответ на них
             while (true)
@@ -87,10 +87,9 @@ namespace MyTelegramBotFirstTryTo
         } // method Main
 
         // формирование ответа
-        static string AnswerQuestion(string UserQuestion, string userName, int userId)
+        public static string AnswerQuestion(string UserQuestion, string userName, int userId)
         {
             List<String> Answers = new List<String>();
-            var Methods = new AuxiliaryMethods();
             var CONST = new CONSTANTS();
 
             UserQuestion = UserQuestion.ToLower();
@@ -105,24 +104,24 @@ namespace MyTelegramBotFirstTryTo
                     {
                         switch (question.Value)
                         {
-                            case "MakeDay()" : Answers.Add(Methods.MakeDay());
+                            case "MakeDay()" : Answers.Add(AuxiliaryMethods.MakeDay());
                                 break;
-                            case "MakeTemperature()" : Answers.Add(Methods.MakeTemperature(UserQuestion));
+                            case "MakeTemperature()" : Answers.Add(AuxiliaryMethods.MakeTemperature(UserQuestion));
                                 break;
-                            case "MakeGreetings()" : Answers.Add(Methods.MakeGreetings(userId, userName));
+                            case "MakeGreetings()" : Answers.Add(AuxiliaryMethods.MakeGreetings(userId, userName));
                                 break;
                             case "MakeNews()" : {
                                 Answers.Add(CONST.NEWS_ANSWER);
-                                ListContent = Methods.MakeNews();
+                                ListContent = AuxiliaryMethods.MakeNews();
                             }
                                 break;
-                            case "MakeInfo()" : Answers.Add(Methods.MakeInfo());
+                            case "MakeInfo()" : Answers.Add(AuxiliaryMethods.MakeInfo());
                                 break;
-                            case "MakeHoroscope()" : Answers.Add(Methods.MakeHoroscope(UserQuestion));
+                            case "MakeHoroscope()" : Answers.Add(AuxiliaryMethods.MakeHoroscope(UserQuestion));
                                 break;
-                            case "MakeQuote()" : Answers.Add(Methods.MakeQuote());
+                            case "MakeQuote()" : Answers.Add(AuxiliaryMethods.MakeQuote());
                                 break;
-                            case "MakeJoke()" : Answers.Add(Methods.MakeJoke(UserQuestion));
+                            case "MakeJoke()" : Answers.Add(AuxiliaryMethods.MakeJoke(UserQuestion));
                                 break;
                             default : Answers.Add(question.Value);
                                 break;

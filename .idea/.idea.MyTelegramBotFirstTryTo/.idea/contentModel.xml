@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\KseniaPC\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\KseniaPC\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_MyTelegramBotFirstTryTo.-1433616434.00" t="ExcludeRecursive" />
-    <e p="C:\Users\KseniaPC\RiderProjects\TelegramBotCurry" t="IncludeFlat">
+    <e p="$USER_HOME$/.Rider2019.2/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.2/system/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_MyTelegramBotFirstTryTo.-1954382331.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.11.0/build/netcoreapp1.0/NUnit3.TestAdapter.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.11.0/build/netcoreapp1.0/NUnit3.TestAdapter.pdb" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.11.0/build/netcoreapp1.0/nunit.engine.netstandard.dll" t="Include" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="MyTelegramBotFirstTryTo" t="IncludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
         <e p="CONSTANTS.cs" t="Include" />
         <e p="Horoscopes.cs" t="Include" />
         <e p="Jokes.cs" t="Include" />
         <e p="MakingMethods.cs" t="Include" />
         <e p="MyTelegramBotFirstTryTo.csproj" t="IncludeRecursive" />
         <e p="News.cs" t="Include" />
+        <e p="Program.cs" t="Include" />
+        <e p="Quotes.cs" t="Include" />
+        <e p="TelegramAPI.cs" t="Include" />
+        <e p="WeatherForecasts.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
@@ -19,13 +26,22 @@
             </e>
           </e>
         </e>
-        <e p="Program.cs" t="Include" />
         <e p="questions.json" t="Include" />
-        <e p="Quotes.cs" t="Include" />
-        <e p="TelegramAPI.cs" t="Include" />
-        <e p="WeatherForecasts.cs" t="Include" />
       </e>
       <e p="MyTelegramBotFirstTryTo.sln" t="IncludeFlat" />
+      <e p="TelegramBotTests" t="IncludeRecursive">
+        <e p="TelegramBotTests.csproj" t="IncludeRecursive" />
+        <e p="UnitTest1.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="TelegramBotTests.AssemblyInfo.cs" t="Include" />
+              <e p="TelegramBotTests.Program.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>
   </component>

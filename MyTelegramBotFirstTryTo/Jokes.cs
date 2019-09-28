@@ -2,8 +2,6 @@ using System;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
-using System.Text;
 using RestSharp;
 
 namespace MyTelegramBotFirstTryTo
