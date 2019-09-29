@@ -30,8 +30,8 @@
       </e>
       <e p="MyTelegramBotFirstTryTo.sln" t="IncludeFlat" />
       <e p="TelegramBotTests" t="IncludeRecursive">
+        <e p="AnswerQuestion_and_MakingMethods_Tests.cs" t="Include" />
         <e p="TelegramBotTests.csproj" t="IncludeRecursive" />
-        <e p="UnitTest1.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
