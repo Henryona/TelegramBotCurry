@@ -41,12 +41,8 @@ namespace MyTelegramBotFirstTryTo
             var API = new TelegramAPI();
             
             // получение списка вопросов из JSON файла
-            var QuesAnJson = System.IO.File.ReadAllText( CONST.QU_AN_JSON_PATH_LIN);
+            var QuesAnJson = System.IO.File.ReadAllText(CONST.QU_AN_JSON_PATH_LIN);
             Questions = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuesAnJson);
-            
-            /*// получение списка id разрешенных чатов 
-            var ChatIDs = System.IO.File.ReadAllText(CONST.CHAT_ID_FILE_PATH).Replace("\n", "");
-            var IdsList = ChatIDs.Split(' '); */
 
             // добавление сообщения погоды по расписанию
             //Methods.MakeSchedule(CONST.CITY, CONST.CHAT_ID);
