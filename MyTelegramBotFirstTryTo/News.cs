@@ -22,22 +22,23 @@ namespace MyTelegramBotFirstTryTo
 
         public News()
         { }
+        
+        // формирование запроса к новостному апи
+        static string API_KEY = "&apiKey=" +  System.IO.File.ReadAllText(CONSTANTS.NEWS_API_FILE_PATH)
+                             .Replace("\n", "");
+        string FINAL_URL = CONSTANTS.API_URL_NEWS  + CONSTANTS.API_COUNTRY + API_KEY;
 
         public List<string> getNews()
         {
-            var CONST = new CONSTANTS();
-            string API_URL = "https://newsapi.org/v2/top-headlines";
-            string API_COUNTRY = "ru";
-            string API_KEY = System.IO.File.ReadAllText(CONST.NEWS_API_FILE_PATH)
-                .Replace("\n", "");
-            string FINAL_URL = API_URL + "?country=" + API_COUNTRY + "&apiKey=" + API_KEY ;
-            
+            // список новостей
             List<string> NewsList = new List<string>();
-            var URL = FINAL_URL;
-            var Request = new RestRequest(URL);
+            
+            // запрос
+            var Request = new RestRequest(FINAL_URL);
             var Response = RC.Get(Request);
             var Data = JsonConvert.DeserializeObject<NewsData>(Response.Content);
 
+            // добавление новостей в цикле
             foreach (var newsArticle in Data.articles)
             {
                 NewsList.Add($"Новость: {newsArticle.description}, ссылка: {newsArticle.url}. ");

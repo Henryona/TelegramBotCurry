@@ -12,11 +12,8 @@ namespace Tests
         [OneTimeSetUp]
         public void Setup()
         {
-            var CONST = new CONSTANTS();
-            var QuesAnJson = System.IO.File.ReadAllText( CONST.QU_AN_JSON_PATH_LIN);
+            var QuesAnJson = System.IO.File.ReadAllText( CONSTANTS.QU_AN_JSON_PATH);
             Program.Questions = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuesAnJson);
-            //public static CultureInfo ci = CultureInfo.GetCultureInfo("en-US");
-            //public string dayOfWeek = DateTime.Now.ToString("dddd", ci);
         }
 
         [TestCase("привет", "", TestName = "first_case_question_привет")]
@@ -106,7 +103,7 @@ namespace Tests
         public void TestMakeGreetingsFunctionId1()
         {
             string expected = $"Приветствую, Ксюша :)";
-            string actual = AuxiliaryMethods.MakeGreetings( userId: 138200931, userName: "Тестовый пользователь");
+            string actual = AuxiliaryMethods.MakeGreetings(userName: "Henryona");
             Assert.AreEqual(expected, actual);
         }
         
@@ -114,7 +111,7 @@ namespace Tests
         public void TestMakeGreetingsFunctionId2()
         {
             string expected = $"Приветствую, Влад :)";
-            string actual = AuxiliaryMethods.MakeGreetings( userId: 162374704, userName: "Тестовый пользователь");
+            string actual = AuxiliaryMethods.MakeGreetings(userName: "vestild");
             Assert.AreEqual(expected, actual);
         }
         

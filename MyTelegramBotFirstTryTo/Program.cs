@@ -10,6 +10,7 @@ namespace MyTelegramBotFirstTryTo
     {
         public static Dictionary<string, string> Questions;
         private static List<string> ListContent = new List<string>();
+        static List<String> Answers = new List<String>();
         
         public interface IKeyboardMarkup
         {
@@ -31,60 +32,67 @@ namespace MyTelegramBotFirstTryTo
             [JsonProperty("resize_keyboard")] public bool ResizeKeyboard { get; set; } = true;
             [JsonProperty("one_time_keyboard")] public bool OneTimeKeyboard { get; set; } = true;
         }
-        
-        public static List<String> Answers = new List<String>();
 
         static void Main(string[] args)
         {
-            var CONST = new CONSTANTS();
-            //var Methods = new AuxiliaryMethods();
             var API = new TelegramAPI();
             
             // получение списка вопросов из JSON файла
-            var QuesAnJson = System.IO.File.ReadAllText(CONST.QU_AN_JSON_PATH_LIN);
+            var QuesAnJson = System.IO.File.ReadAllText(CONSTANTS.QU_AN_JSON_PATH);
             Questions = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuesAnJson);
 
             // добавление сообщения погоды по расписанию
             //Methods.MakeSchedule(CONST.CITY, CONST.CHAT_ID);
             
-            var token = API.getApiUrl(CONST.CURRY_BOT_TOKEN_PATH_LIN);
+            // получение токена из файла
+            var token = "";
+            try
+            {
+                string BotToken = System.IO.File.ReadAllText(CONSTANTS.CURRY_BOT_TOKEN_PATH)
+                    .Replace("\n", "");
+                token =  CONSTANTS.API_URL_MAIN + BotToken + "/";
+            }
+            catch
+            {
+                Console.WriteLine("No file with bot token!");
+            }
             
             // ожидание бота, получение запросов и ответ на них
             while (true)
             {
+                // задержка в одну секунду, чтобы не постоянно обращаться к апи телеграма
                 Thread.Sleep(1000);
+                
+                // получение апдейтов
                 var Updates = API.GetUpdates(token);
                 foreach (var update in Updates)
                 {
-                    /*if (IdsList.Contains(update.message.chat.id.ToString()))
-                    { */
-                        var userName = update.message.from.first_name;
-                        var userId = update.message.from.id;
-                        var Question = update.message.text;
-                        var Answer = AnswerQuestion(Question, userName, userId);
+                    var userName = update.message.from.first_name;
+                    var userId = update.message.from.id;
+                    var Question = update.message.text;
+                    var Answer = AnswerQuestion(Question, userName, userId);
+                       
+                    // кнопочки для телеграма
+                    var keyboardMarkUp = new ReplyKeyBoardMarkup();
+                    keyboardMarkUp.Keyboard = new KeyboardButton[][]
+                    {
+                        new KeyboardButton[] {new KeyboardButton("curry привет"), new KeyboardButton("curry какой день недели")},
+                        new KeyboardButton[] {new KeyboardButton("curry какая погода в городе Москва"), new KeyboardButton("curry покажи новости") },
+                        new KeyboardButton[] {new KeyboardButton("curry нужна помощь"), new KeyboardButton("curry расскажи гороскоп") },
+                        new KeyboardButton[] {new KeyboardButton("curry покажи цитату"), new KeyboardButton("curry расскажи анекдот") },
+                        new KeyboardButton[] {new KeyboardButton("curry расскажи историю") },
+                    };
+                    string keyboard = JsonConvert.SerializeObject(keyboardMarkUp);
                         
-                        var keyboardMarkUp = new ReplyKeyBoardMarkup();
-                        keyboardMarkUp.Keyboard = new KeyboardButton[][]
-                        {
-                            new KeyboardButton[] {new KeyboardButton("curry привет"), new KeyboardButton("curry какой день недели")},
-                            new KeyboardButton[] {new KeyboardButton("curry какая погода в городе Москва"), new KeyboardButton("curry покажи новости") },
-                            new KeyboardButton[] {new KeyboardButton("curry нужна помощь"), new KeyboardButton("curry расскажи гороскоп") },
-                            new KeyboardButton[] {new KeyboardButton("curry покажи цитату"), new KeyboardButton("curry расскажи анекдот") },
-                            new KeyboardButton[] {new KeyboardButton("curry расскажи историю") },
-                        };
-                        string keyboard = JsonConvert.SerializeObject(keyboardMarkUp);
+                    //  большая часть ответов - обычный string, посылаем его
+                    API.sendMessage(token,Answer, update.message.chat.id, keyboard); 
+                    // некоторые ответы записаны в список, посылаем все его элементы
+                    if (ListContent.Count != 0)
+                        API.sendMessage(token, ListContent, update.message.chat.id, keyboard);
                         
-                        //  большая часть ответов - обычный string, посылаем его
-                        API.sendMessage(token,Answer, update.message.chat.id, keyboard); 
-                        // некоторые ответы записаны в список, посылаем все его элементы
-                        if (ListContent.Count != 0)
-                            API.sendMessage(token, ListContent, update.message.chat.id, keyboard);
-                        
-                        // очищаем ответы
-                        Answer = "";
-                        ListContent.Clear();
-                        Answers.Clear();
-                    //}
+                    // очищаем ответы
+                    ListContent.Clear();
+                    Answers.Clear();
                 }
             }
             
@@ -93,13 +101,11 @@ namespace MyTelegramBotFirstTryTo
         // формирование ответа
         public static string AnswerQuestion(string UserQuestion, string userName, int userId)
         {
-            Answers.Clear();
-            var CONST = new CONSTANTS();
-
+            //Answers.Clear();
             UserQuestion = UserQuestion.ToLower();
 
             // вопрос должен быть адресован боту: начинаться с его имени
-            if (UserQuestion.StartsWith(CONST.BOT_NAME))
+            if (UserQuestion.StartsWith(CONSTANTS.BOT_NAME))
             {
                 foreach (var question in Questions)
                 {
@@ -112,10 +118,10 @@ namespace MyTelegramBotFirstTryTo
                                 break;
                             case "MakeTemperature()" : Answers.Add(AuxiliaryMethods.MakeTemperature(UserQuestion));
                                 break;
-                            case "MakeGreetings()" : Answers.Add(AuxiliaryMethods.MakeGreetings(userId, userName));
+                            case "MakeGreetings()" : Answers.Add(AuxiliaryMethods.MakeGreetings(userName));
                                 break;
                             case "MakeNews()" : {
-                                Answers.Add(CONST.NEWS_ANSWER);
+                                Answers.Add(CONSTANTS.NEWS_ANSWER);
                                 ListContent = AuxiliaryMethods.MakeNews();
                             }
                                 break;

@@ -53,25 +53,22 @@ namespace MyTelegramBotFirstTryTo
         public Horoscope()
         { }
         
-        const string API_URL = "https://ignio.com/r/export/utf/xml/daily/";
-        const string API_HORO_TYPE = "cook";
-        const string API_XML = ".xml";
-        const string FINAL_URL = API_URL + API_HORO_TYPE + API_XML ;
+        // составляем url для запроса гороскопа
+        string FINAL_URL = CONSTANTS.API_URL_HORO + CONSTANTS.API_HORO_TYPE + CONSTANTS.API_XML ;
         private RestClient RC = new RestClient();
         
         public string getHororscopeBySign(string signOfZodiac)
         {
-            var URL = FINAL_URL;
-            var CONST = new CONSTANTS();
-            var Request = new RestRequest(URL);
+            // запрос гороскопа
+            var Request = new RestRequest(FINAL_URL);
             var Response = RC.Get(Request);
 
-            XmlSerializer serializer = 
-                new XmlSerializer(typeof(Horo));
-
+            // парсим ответ, он в xml формате
+            XmlSerializer serializer = new XmlSerializer(typeof(Horo));
             var ms = new MemoryStream(Response.RawBytes);
             var Data = (Horo)serializer.Deserialize(ms);
 
+            // возвращаем гороскоп на нужный знак зодиака
             switch (signOfZodiac)
             {
                 case "овен" : return Data.aries.today;
@@ -86,8 +83,8 @@ namespace MyTelegramBotFirstTryTo
                 case "козерог" : return Data.capricorn.today;
                 case "водолей" : return Data.aquarius.today;
                 case "рыбы" : return Data.pisces.today;
-                default : return CONST.UNKNOWN_ZODIAC;
-            }
+                default : return CONSTANTS.UNKNOWN_ZODIAC;
+            } // switch (signOfZodiac)
             
         } // method getHororscopeBySign
     } //class Horoscope

@@ -22,12 +22,13 @@ namespace MyTelegramBotFirstTryTo
             public string content { get; set; }            
         }
         
-        const string API_URL = "http://rzhunemogu.ru/Rand.aspx";
-        const string FINAL_URL = API_URL + "?CType=";
+        // составляем url для запроса анекдота или истории
+        private string PRE_FINAL_URL = CONSTANTS.API_URL_JOKE + CONSTANTS.TYPE;
         private RestClient RC = new RestClient();
 
         public string getJokeOrStory(string category)
         {
+            // выбор: анекдот или история
             switch (category)
             {
                 case "анекдот" : category = "1";
@@ -37,18 +38,19 @@ namespace MyTelegramBotFirstTryTo
                 default : category = "1";
                     break;
             }
-            var URL = FINAL_URL + category;
-            var Request = new RestRequest(URL);
+            
+            // запрос анекдота\истории
+            var Request = new RestRequest(PRE_FINAL_URL + category);
             var Response = RC.Get(Request);
             
-            XmlSerializer serializer = 
-                new XmlSerializer(typeof(Jokes.Root));
+            // парсим ответ, он в xml формате
+            XmlSerializer serializer = new XmlSerializer(typeof(Jokes.Root));
 
-            // у сервера проблемы с кодировкой- исправление
+            // у сервера проблемы с кодировкой - исправление
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var encoding = Encoding.GetEncoding(1251);
             var enc1251 = encoding.GetString(Response.RawBytes);
-
+            
             var Data = (Root)serializer.Deserialize(new StringReader(enc1251));
             
             return Data.content;

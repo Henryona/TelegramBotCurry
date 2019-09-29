@@ -12,16 +12,19 @@ namespace MyTelegramBotFirstTryTo
             public string quoteAuthor { get; set; }
         }
         
-        const string API_URL = "https://api.forismatic.com/api/1.0/";
-        const string API_METHOD = "?method=getQuote";
-        const string FINAL_URL = API_URL + API_METHOD + "&format=json"  + "&lang=ru&q=";
+        // формирование запроса к апи с цитатами
+        string FINAL_URL = CONSTANTS.API_URL_QUOTES + CONSTANTS.API_METHOD + 
+                           CONSTANTS.API_FORMAT + CONSTANTS.API_LANGUAGE;
         private RestClient RC = new RestClient();
 
+        // получение цитаты
         public string getRandonQuote()
         {
-            var URL = FINAL_URL;
-            var Request = new RestRequest(URL);
+            // запрос цитаты
+            var Request = new RestRequest(FINAL_URL);
             var Response = RC.Get(Request);
+            
+            // парсим ответ, он в json-формате
             var Data = JsonConvert.DeserializeObject<Quotes.QuoteData>(Response.Content);
             
             return Data.quoteText + " \n" + Data.quoteAuthor;

@@ -21,7 +21,11 @@ namespace MyTelegramBotFirstTryTo
         {
             public string text { get; set; }
         }
-        
+
+        // формирование запроса к погодному апи
+        static string API_KEY = "?key=" + System.IO.File.ReadAllText(CONSTANTS.WEATHER_API_FILE_PATH)
+            .Replace("\n", "");
+        private string PRE_FINAL_API = CONSTANTS.API_URL_WEATHER + API_KEY + CONSTANTS.API_LANGUAGE;
         private RestClient RC = new RestClient();
 
         public WeatherForecasts()
@@ -29,14 +33,12 @@ namespace MyTelegramBotFirstTryTo
 
         public string getWeatherInCity(string city)
         {
-            var CONST = new CONSTANTS();
-            string API_URL = "http://api.apixu.com/v1/current.json";
-            string API_KEY = System.IO.File.ReadAllText(CONST.WEATHER_API_FILE_PATH)
-                .Replace("\n", "");
-            string FINAL_URL = API_URL + "?key=" + API_KEY + "&lang=ru&q=";
-            var URL = FINAL_URL + city;
-            var Request = new RestRequest(URL);
+            // запрос
+            var FINAL_URL = PRE_FINAL_API + city;
+            var Request = new RestRequest(FINAL_URL);
             var Response = RC.Get(Request);
+            
+            // парсим ответ, он в json-формате
             var Data = JsonConvert.DeserializeObject<WeatherData>(Response.Content);
             var Temp = (int) Data.current.temp_c;
 
