@@ -50,8 +50,6 @@ namespace MyTelegramBotFirstTryTo
             public Update[] result { get; set; }
         }
         
-        static String BotToken;
-
         // послать сообщение в чат (строку)
         public void sendMessage(string text, int chat_id, string keyboard)
         {

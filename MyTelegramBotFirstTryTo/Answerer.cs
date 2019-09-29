@@ -5,10 +5,12 @@ namespace MyTelegramBotFirstTryTo
 {
     public class Answerer
     {
+        private readonly AuxiliaryMethods _methods;
         private readonly Dictionary<string, Action<string, string, List<string>, List<string>>> questions;
 
-        public Answerer()
+        public Answerer(AuxiliaryMethods methods)
         {
+            _methods = methods;
             questions = new Dictionary<string, Action<string, string, List<string>, List<string>>>
             {
                 ["какой день недели"] = MakeDay,
@@ -25,43 +27,43 @@ namespace MyTelegramBotFirstTryTo
 
         private void MakeDay(string userQuestion, string userName, List<string> answers, List<string> listContent)
         {
-            answers.Add(AuxiliaryMethods.MakeDay());
+            answers.Add(_methods.MakeDay());
         }
         
         private void MakeTemperature(string userQuestion, string userName, List<string> answers, List<string> listContent)
         {
-            answers.Add(AuxiliaryMethods.MakeTemperature(userQuestion));
+            answers.Add(_methods.MakeTemperature(userQuestion));
         }
         
         private void MakeGreetings(string userQuestion, string userName, List<string> answers, List<string> listContent)
         {
-            answers.Add(AuxiliaryMethods.MakeGreetings(userName));
+            answers.Add(_methods.MakeGreetings(userName));
         }
         
         private void MakeNews(string userQuestion, string userName, List<string> answers, List<string> listContent)
         {
             answers.Add(CONSTANTS.NEWS_ANSWER);
-            listContent.AddRange(AuxiliaryMethods.MakeNews());
+            listContent.AddRange(_methods.MakeNews());
         }
         
         private void MakeInfo(string userQuestion, string userName, List<string> answers, List<string> listContent)
         {
-            answers.Add(AuxiliaryMethods.MakeInfo());
+            answers.Add(_methods.MakeInfo());
         }
         
         private void MakeHoroscope(string userQuestion, string userName, List<string> answers, List<string> listContent)
         {
-            answers.Add(AuxiliaryMethods.MakeHoroscope(userQuestion));
+            answers.Add(_methods.MakeHoroscope(userQuestion));
         }
         
         private void MakeQuote(string userQuestion, string userName, List<string> answers, List<string> listContent)
         {
-            answers.Add(AuxiliaryMethods.MakeQuote());
+            answers.Add(_methods.MakeQuote());
         }
         
         private void MakeJoke(string userQuestion, string userName, List<string> answers, List<string> listContent)
         {
-            answers.Add(AuxiliaryMethods.MakeJoke(userQuestion));
+            answers.Add(_methods.MakeJoke(userQuestion));
         }
         
 

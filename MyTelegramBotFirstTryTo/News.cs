@@ -21,25 +21,16 @@ namespace MyTelegramBotFirstTryTo
         
         private RestClient RC = new RestClient();
 
-        public News()
-        { }
+        private readonly string FINAL_URL;
+
+        public News(string newsToken)
+        {
+            // формирование запроса к погодному апи
+            FINAL_URL = CONSTANTS.API_URL_NEWS  + CONSTANTS.API_COUNTRY + "&apiKey=" + newsToken;
+        }
 
         public List<string> getNews()
         {
-            // формирование запроса к новостному апи
-            string API_KEY = "";
-            try
-            {
-                API_KEY = "&apiKey=" +  System.IO.File.ReadAllText(CONSTANTS.NEWS_API_FILE_PATH)
-                              .Replace("\n", "");
-            }
-            catch
-            {
-                Console.WriteLine("No file with news api token!");
-            }
-            // формирование запроса к новостному апи
-            string FINAL_URL = CONSTANTS.API_URL_NEWS  + CONSTANTS.API_COUNTRY + API_KEY;
-            
             // список новостей
             List<string> NewsList = new List<string>();
             

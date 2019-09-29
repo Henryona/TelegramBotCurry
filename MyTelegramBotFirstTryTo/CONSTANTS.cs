@@ -7,7 +7,7 @@
         
         // все константы для работы с погодй
         public static string WEATHER_API_FILE_PATH = "../../../../curryBot/API_KEY_WEATHER";
-        public static string API_URL_WEATHER = "http://api.apixu.com/v1/current.json";
+        public static string API_URL_WEATHER = "http://api.apixu.com/v1/current.json?key=";
         
         // все константы для работы с цитатами
         public static string API_URL_QUOTES = "https://api.forismatic.com/api/1.0/";

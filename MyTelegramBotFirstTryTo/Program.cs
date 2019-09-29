@@ -30,21 +30,30 @@ namespace MyTelegramBotFirstTryTo
             // добавление сообщения погоды по расписанию
             //Methods.MakeSchedule(CONST.CITY, CONST.CHAT_ID);
             
-            // получение токена из файла
+            // получение токенов и json из файла
             var token = "";
+            var weatherToken = "";
+            var newsToken = "";
+            var namesJson = "";
             try
             {
                 token = System.IO.File.ReadAllText(CONSTANTS.CURRY_BOT_TOKEN_PATH)
                     .Replace("\n", "");
+                weatherToken = System.IO.File.ReadAllText(CONSTANTS.WEATHER_API_FILE_PATH)
+                    .Replace("\n", "");
+                newsToken = System.IO.File.ReadAllText(CONSTANTS.NEWS_API_FILE_PATH)
+                    .Replace("\n", "");
+                namesJson = System.IO.File.ReadAllText(CONSTANTS.NAMES_JSON_PATH);
             }
             catch
             {
-                Console.WriteLine("No file with bot token!");
+                Console.WriteLine("No file with token or json!");
                 return;
             }
             
             var API = new TelegramAPI(token);
-            var potentialQuestions = new Answerer();
+            var auxiliaryMethods = new AuxiliaryMethods(namesJson, weatherToken, newsToken);
+            var potentialQuestions = new Answerer(auxiliaryMethods);
             
             // ожидание бота, получение запросов и ответ на них
             while (true)
