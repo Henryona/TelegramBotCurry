@@ -25,7 +25,7 @@ namespace MyTelegramBotFirstTryTo
             var Response = RC.Get(Request);
             
             // парсим ответ, он в json-формате
-            var Data = JsonConvert.DeserializeObject<Quotes.QuoteData>(Response.Content);
+            var Data = JsonConvert.DeserializeObject<QuoteData>(Response.Content);
             
             return Data.quoteText + " \n" + Data.quoteAuthor;
             ;

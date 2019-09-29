@@ -12,8 +12,7 @@ namespace Tests
         [OneTimeSetUp]
         public void Setup()
         {
-            var QuesAnJson = System.IO.File.ReadAllText( CONSTANTS.QU_AN_JSON_PATH);
-            Program.Questions = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuesAnJson);
+            Program.PotentialQuestions = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuesAnJson);
         }
 
         [TestCase("привет", "", TestName = "first_case_question_привет")]
@@ -93,7 +92,7 @@ namespace Tests
         {
             string notExpected = "Мне не совсем ясен твой вопрос";
             string actual = "";
-
+            
             actual = Program.AnswerQuestion(UserQuestion: "curry покажи новости", userName: "Тестовый пользователь", userId: 123456789);
             Assert.AreNotEqual(notExpected, actual);
         }

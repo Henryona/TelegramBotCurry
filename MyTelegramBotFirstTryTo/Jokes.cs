@@ -28,23 +28,12 @@ namespace MyTelegramBotFirstTryTo
 
         public string getJokeOrStory(string category)
         {
-            // выбор: анекдот или история
-            switch (category)
-            {
-                case "анекдот" : category = "1";
-                    break;
-                case "историю" : category = "2";
-                    break;
-                default : category = "1";
-                    break;
-            }
-            
             // запрос анекдота\истории
             var Request = new RestRequest(PRE_FINAL_URL + category);
             var Response = RC.Get(Request);
             
             // парсим ответ, он в xml формате
-            XmlSerializer serializer = new XmlSerializer(typeof(Jokes.Root));
+            XmlSerializer serializer = new XmlSerializer(typeof(Root));
 
             // у сервера проблемы с кодировкой - исправление
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);

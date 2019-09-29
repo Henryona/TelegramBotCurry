@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using RestSharp;
 using Newtonsoft.Json;
@@ -22,10 +23,6 @@ namespace MyTelegramBotFirstTryTo
             public string text { get; set; }
         }
 
-        // формирование запроса к погодному апи
-        static string API_KEY = "?key=" + System.IO.File.ReadAllText(CONSTANTS.WEATHER_API_FILE_PATH)
-            .Replace("\n", "");
-        private string PRE_FINAL_API = CONSTANTS.API_URL_WEATHER + API_KEY + CONSTANTS.API_LANGUAGE;
         private RestClient RC = new RestClient();
 
         public WeatherForecasts()
@@ -33,6 +30,19 @@ namespace MyTelegramBotFirstTryTo
 
         public string getWeatherInCity(string city)
         {
+            // формирование запроса к погодному апи
+            string API_KEY = "";
+            try
+            {
+                API_KEY = "?key=" + System.IO.File.ReadAllText(CONSTANTS.WEATHER_API_FILE_PATH)
+                              .Replace("\n", "");
+            }
+            catch
+            {
+                Console.WriteLine("No file with weather api token!");
+            }
+            
+            string PRE_FINAL_API = CONSTANTS.API_URL_WEATHER + API_KEY + CONSTANTS.API_LANGUAGE;
             // запрос
             var FINAL_URL = PRE_FINAL_API + city;
             var Request = new RestRequest(FINAL_URL);

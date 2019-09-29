@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Chroniton;
 using Chroniton.Jobs;
 using Chroniton.Schedules;
@@ -10,22 +11,33 @@ namespace MyTelegramBotFirstTryTo
 {
     public class AuxiliaryMethods
     {
-        // парс json файла с именами и никнеймами 
-        static string IdNamesJson = System.IO.File.ReadAllText(CONSTANTS.NAMES_JSON_PATH);
-        static Dictionary<string, string> IdNames = JsonConvert.DeserializeObject<Dictionary<string, string>>(IdNamesJson);
-
         // получение текущей погоды и температуры воздуха 
         public static string MakeTemperature(string UserQuestion)
         {
             // получение города из вопроса пользователя
-            var words = UserQuestion.Split(' ');
-            var city = words[words.Length - 1];
+            var city = FindValue(UserQuestion, "городе", "Москва");
             
             // запрос к api с погодой
             var WeatherApi = new WeatherForecasts();
             var forecast = WeatherApi.getWeatherInCity(city);
             return forecast;
         } // method MakeTemperature
+
+        public static string FindValue(string question, string comparator, string goodRerurn)
+        {
+            var words = question.Split(' ');
+            var found = false;
+            foreach (var word in words)
+            {
+                if (found)
+                    return word;
+                
+                if (word == comparator)
+                    found = true;
+            }
+
+            return goodRerurn;
+        }
 
         // формирование ответа на запрос дня недели
         public static string MakeDay()
@@ -43,6 +55,18 @@ namespace MyTelegramBotFirstTryTo
         // формирование приветствия 
         public static string MakeGreetings(string userName)
         {
+            // парс json файла с именами и никнеймами 
+            string IdNamesJson = "";
+            try
+            {
+                IdNamesJson = System.IO.File.ReadAllText(CONSTANTS.NAMES_JSON_PATH);
+            }
+            catch
+            {
+                Console.WriteLine("No file with names and nicknames!");
+            }
+            
+            Dictionary<string, string> IdNames = JsonConvert.DeserializeObject<Dictionary<string, string>>(IdNamesJson);
             // поиск совпадения никнейма и присваивание имени для образения к пользователю
             string callName = userName;
             foreach (var uName in IdNames)
@@ -64,9 +88,8 @@ namespace MyTelegramBotFirstTryTo
         // получение гороскопа
         public static string MakeHoroscope(string UserQuestion)
         {
-            // последнее слово должно быть знаком зодиака
-            var words = UserQuestion.Split(' ');
-            var signOfZodiac = words[words.Length - 1];
+            // получение города из вопроса пользователя
+            var signOfZodiac = FindValue(UserQuestion, "гороскоп", "");
             
             // обращение к апи 
             var HoroscopeApi = new Horoscope();
@@ -87,7 +110,7 @@ namespace MyTelegramBotFirstTryTo
         {
             // последнее слово должно отражать, что нужно: история или анекдот
             var words = UserQuestion.Split(' ');
-            var category = words[words.Length - 1];
+            var category = (words.Contains("анекдот")) ? "1" : "2";
 
             // запрос к апи 
             var JokesApi = new Jokes();

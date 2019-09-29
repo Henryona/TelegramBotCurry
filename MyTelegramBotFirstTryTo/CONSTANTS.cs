@@ -2,8 +2,6 @@
 {
     public class CONSTANTS
     {
-        // файлик с json вопросами-ответами
-        public static string QU_AN_JSON_PATH = "../../../questions.json";
         // файлик с именами\никнеймами
         public static string NAMES_JSON_PATH = "../../../../curryBot/NAMES.json";
         

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using RestSharp;
 using Newtonsoft.Json;
@@ -22,14 +23,23 @@ namespace MyTelegramBotFirstTryTo
 
         public News()
         { }
-        
-        // формирование запроса к новостному апи
-        static string API_KEY = "&apiKey=" +  System.IO.File.ReadAllText(CONSTANTS.NEWS_API_FILE_PATH)
-                             .Replace("\n", "");
-        string FINAL_URL = CONSTANTS.API_URL_NEWS  + CONSTANTS.API_COUNTRY + API_KEY;
 
         public List<string> getNews()
         {
+            // формирование запроса к новостному апи
+            string API_KEY = "";
+            try
+            {
+                API_KEY = "&apiKey=" +  System.IO.File.ReadAllText(CONSTANTS.NEWS_API_FILE_PATH)
+                              .Replace("\n", "");
+            }
+            catch
+            {
+                Console.WriteLine("No file with news api token!");
+            }
+            // формирование запроса к новостному апи
+            string FINAL_URL = CONSTANTS.API_URL_NEWS  + CONSTANTS.API_COUNTRY + API_KEY;
+            
             // список новостей
             List<string> NewsList = new List<string>();
             
@@ -41,7 +51,7 @@ namespace MyTelegramBotFirstTryTo
             // добавление новостей в цикле
             foreach (var newsArticle in Data.articles)
             {
-                NewsList.Add($"Новость: {newsArticle.description}, ссылка: {newsArticle.url}. ");
+                NewsList.Add($"Новость: {newsArticle.description}, ссылка: {newsArticle.url}");
             }
                 
             return NewsList;
