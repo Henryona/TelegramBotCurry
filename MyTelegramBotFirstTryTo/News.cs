@@ -17,11 +17,7 @@ namespace MyTelegramBotFirstTryTo
             public string description { get; set; }
             public string url { get; set; }
         }
-
-        const string API_URL = "https://newsapi.org/v2/top-headlines";
-        const string API_COUNTRY = "ru";
-        const string API_KEY = "efc7771681bf4945804076af394052b9";
-        const string FINAL_URL = API_URL + "?country=" + API_COUNTRY + "&apiKey=" + API_KEY ;
+        
         private RestClient RC = new RestClient();
 
         public News()
@@ -29,11 +25,18 @@ namespace MyTelegramBotFirstTryTo
 
         public List<string> getNews()
         {
+            var CONST = new CONSTANTS();
+            string API_URL = "https://newsapi.org/v2/top-headlines";
+            string API_COUNTRY = "ru";
+            string API_KEY = System.IO.File.ReadAllText(CONST.NEWS_API_FILE_PATH)
+                .Replace("\n", "");
+            string FINAL_URL = API_URL + "?country=" + API_COUNTRY + "&apiKey=" + API_KEY ;
+            
+            List<string> NewsList = new List<string>();
             var URL = FINAL_URL;
             var Request = new RestRequest(URL);
             var Response = RC.Get(Request);
             var Data = JsonConvert.DeserializeObject<NewsData>(Response.Content);
-            List<string> NewsList = new List<string>();
 
             foreach (var newsArticle in Data.articles)
             {

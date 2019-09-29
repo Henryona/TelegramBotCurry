@@ -31,6 +31,9 @@ namespace MyTelegramBotFirstTryTo
             [JsonProperty("resize_keyboard")] public bool ResizeKeyboard { get; set; } = true;
             [JsonProperty("one_time_keyboard")] public bool OneTimeKeyboard { get; set; } = true;
         }
+        
+        public static List<String> Answers = new List<String>();
+
         static void Main(string[] args)
         {
             var CONST = new CONSTANTS();
@@ -49,7 +52,7 @@ namespace MyTelegramBotFirstTryTo
             //Methods.MakeSchedule(CONST.CITY, CONST.CHAT_ID);
             
             var token = API.getApiUrl(CONST.CURRY_BOT_TOKEN_PATH_LIN);
-
+            
             // ожидание бота, получение запросов и ответ на них
             while (true)
             {
@@ -80,6 +83,11 @@ namespace MyTelegramBotFirstTryTo
                         // некоторые ответы записаны в список, посылаем все его элементы
                         if (ListContent.Count != 0)
                             API.sendMessage(token, ListContent, update.message.chat.id, keyboard);
+                        
+                        // очищаем ответы
+                        Answer = "";
+                        ListContent.Clear();
+                        Answers.Clear();
                     //}
                 }
             }
@@ -89,7 +97,7 @@ namespace MyTelegramBotFirstTryTo
         // формирование ответа
         public static string AnswerQuestion(string UserQuestion, string userName, int userId)
         {
-            List<String> Answers = new List<String>();
+            Answers.Clear();
             var CONST = new CONSTANTS();
 
             UserQuestion = UserQuestion.ToLower();

@@ -1,3 +1,5 @@
-bin/
-obj/
-/packages/
+curryBot
+curryBot/API_KEY_NEWS
+curryBot/API_KEY_WEATHER
+curryBot/chat_ids
+currybottoken

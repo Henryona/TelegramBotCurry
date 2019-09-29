@@ -1,0 +1,17 @@
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/bin/Debug/netcoreapp2.2/NUnit3.TestAdapter.dll
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/bin/Debug/netcoreapp2.2/NUnit3.TestAdapter.pdb
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/bin/Debug/netcoreapp2.2/nunit.engine.netstandard.dll
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/bin/Debug/netcoreapp2.2/TelegramBotTests.deps.json
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/bin/Debug/netcoreapp2.2/TelegramBotTests.runtimeconfig.json
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/bin/Debug/netcoreapp2.2/TelegramBotTests.runtimeconfig.dev.json
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/bin/Debug/netcoreapp2.2/TelegramBotTests.dll
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/bin/Debug/netcoreapp2.2/TelegramBotTests.pdb
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/bin/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.dll
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/bin/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.pdb
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/obj/Debug/netcoreapp2.2/TelegramBotTests.csprojAssemblyReference.cache
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/obj/Debug/netcoreapp2.2/TelegramBotTests.csproj.CoreCompileInputs.cache
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/obj/Debug/netcoreapp2.2/TelegramBotTests.AssemblyInfoInputs.cache
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/obj/Debug/netcoreapp2.2/TelegramBotTests.AssemblyInfo.cs
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/obj/Debug/netcoreapp2.2/TelegramBotTests.csproj.CopyComplete
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/obj/Debug/netcoreapp2.2/TelegramBotTests.dll
+/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/obj/Debug/netcoreapp2.2/TelegramBotTests.pdb

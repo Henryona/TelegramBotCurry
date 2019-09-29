@@ -47,8 +47,6 @@ namespace MyTelegramBotFirstTryTo
             //var platform = RuntimeInformation.IsOSPlatform;
             try
             {
-                //static String BotToken = System.IO.File.ReadAllText("/home/henryona/Документы/curryBot/currybottoken")
-                //.Replace("\n", "");
                 BotToken = System.IO.File.ReadAllText(path)
                     .Replace("\n", "");
                 API_URL =  "https://api.telegram.org/bot" + BotToken + "/";

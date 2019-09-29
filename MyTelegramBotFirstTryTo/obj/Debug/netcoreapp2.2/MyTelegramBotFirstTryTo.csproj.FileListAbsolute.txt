@@ -1,0 +1,11 @@
+/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/bin/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.deps.json
+/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/bin/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.runtimeconfig.json
+/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/bin/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.runtimeconfig.dev.json
+/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/bin/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.dll
+/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/bin/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.pdb
+/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/obj/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.csprojAssemblyReference.cache
+/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/obj/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.csproj.CoreCompileInputs.cache
+/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/obj/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.AssemblyInfoInputs.cache
+/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/obj/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.AssemblyInfo.cs
+/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/obj/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.dll
+/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/obj/Debug/netcoreapp2.2/MyTelegramBotFirstTryTo.pdb
