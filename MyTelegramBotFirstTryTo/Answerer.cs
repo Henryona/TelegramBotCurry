@@ -13,8 +13,9 @@ namespace MyTelegramBotFirstTryTo
             _methods = methods;
             questions = new Dictionary<string, Action<string, string, List<string>, List<string>>>
             {
-                ["какой день недели"] = MakeDay,
+                ["какой день недели?"] = MakeDay,
                 ["привет"] = MakeGreetings,
+                ["как твои дела?"] = MakeHowAreYou,
                 ["какая погода в городе"] = MakeTemperature,
                 ["покажи новости"] = MakeNews,
                 ["нужна помощь"] = MakeInfo,
@@ -23,6 +24,11 @@ namespace MyTelegramBotFirstTryTo
                 ["расскажи анекдот"] = MakeJoke,
                 ["расскажи историю"] = MakeJoke,
             };
+        }
+
+        private void MakeHowAreYou(string userQuestion, string userName, List<string> answers, List<string> listContent)
+        {
+            answers.Add(_methods.MakeHowAreYou());
         }
 
         private void MakeDay(string userQuestion, string userName, List<string> answers, List<string> listContent)
@@ -70,16 +76,17 @@ namespace MyTelegramBotFirstTryTo
         public (string answers,  List<string> listContent) Answer(string userQuestion, string userName)
         {
             // вопрос должен быть адресован боту: начинаться с его имени
-            if (!userQuestion.StartsWith(CONSTANTS.BOT_NAME))
+            /*if (!userQuestion.StartsWith(CONSTANTS.BOT_NAME))
             {
                 return ("", new List<string>());
-            }
+            }*/
             
             var answers = new List<string>();
             var listContent = new List<string>();
 
             foreach (var variant in questions)
             {
+                userQuestion = userQuestion.ToLower();
                 if (userQuestion.Contains(variant.Key))
                 {
                     variant.Value(userQuestion, userName, answers, listContent);
@@ -88,7 +95,7 @@ namespace MyTelegramBotFirstTryTo
             
             // ни одного ответа не удалось подобрать- был задан некорректный вопрос
             if (answers.Count == 0)
-                answers.Add("Мне не совсем ясен твой вопрос");     
+                answers.Add(CONSTANTS.dontknow[new Random().Next(0, CONSTANTS.dontknow.Count)] );     
             
             return (string.Join(", ", answers), listContent);
         }

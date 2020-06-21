@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using RestSharp;
 using Newtonsoft.Json;
@@ -14,13 +15,17 @@ namespace MyTelegramBotFirstTryTo
 
         public class Current
         {
-            public double temp_c { get; set; }
-            public Condition condition { get; set; }
+            public double temperature { get; set; }
+            public List<String> weather_descriptions { get; set; }
         }
-
-        public class Condition
+        public class Location
         {
-            public string text { get; set; }
+            public Country country { get; set; }
+        }
+        
+        public class Country
+        {
+            public string ctext { get; set; }
         }
 
         private RestClient RC = new RestClient();
@@ -35,15 +40,20 @@ namespace MyTelegramBotFirstTryTo
         public string getWeatherInCity(string city)
         {
             // запрос
+            if (city.ToLower() == "москва")
+                city = "Москва, Россия";
+            
             var FINAL_URL = PRE_FINAL_API + city;
             var Request = new RestRequest(FINAL_URL);
             var Response = RC.Get(Request);
             
             // парсим ответ, он в json-формате
             var Data = JsonConvert.DeserializeObject<WeatherData>(Response.Content);
-            var Temp = (int) Data.current.temp_c;
+            var Temp = (int) Data.current.temperature;
+            
 
-            return $"В городе {city.Substring(0, 1).ToUpper() + city.Substring(1, city.Length - 1)} сейчас {Data.current.condition.text}, температура воздуха {Temp}";
+            return $"В городе {city.Substring(0, 1).ToUpper() + city.Substring(1, city.Length - 1)} сейчас {Data.current.weather_descriptions[0]}, температура воздуха {Temp}";
+            
         } // method getWeatherInCity
 
     } // class WeatherForecasts

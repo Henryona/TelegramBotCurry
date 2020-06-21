@@ -2,8 +2,7 @@
   "runtimeOptions": {
     "additionalProbingPaths": [
       "/home/henryona/.dotnet/store/|arch|/|tfm|",
-      "/home/henryona/.nuget/packages",
-      "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+      "/home/henryona/.nuget/packages"
     ]
   }
 }

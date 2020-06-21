@@ -1,25 +1,22 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/TelegramBotTests.csproj",
+    "projectUniqueName": "/home/henryona/Documents/CurryBot/TelegramBotCurry/TelegramBotTests/TelegramBotTests.csproj",
     "projectName": "TelegramBotTests",
-    "projectPath": "/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/TelegramBotTests.csproj",
-    "outputPath": "/home/henryona/RiderProjects/TelegramBotCurry/TelegramBotTests/obj/",
+    "projectPath": "/home/henryona/Documents/CurryBot/TelegramBotCurry/TelegramBotTests/TelegramBotTests.csproj",
+    "outputPath": "/home/henryona/Documents/CurryBot/TelegramBotCurry/TelegramBotTests/obj/",
     "projectStyle": "PackageReference",
-    "fallbackFolders": [
-      "/usr/share/dotnet/sdk/NuGetFallbackFolder"
-    ],
     "originalTargetFrameworks": [
-      "netcoreapp2.2"
+      "netcoreapp3.0"
     ],
     "sources": {
       "https://api.nuget.org/v3/index.json": {}
     },
     "frameworks": {
-      "netcoreapp2.2": {
+      "netcoreapp3.0": {
         "projectReferences": {
-          "/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/MyTelegramBotFirstTryTo.csproj": {
-            "projectPath": "/home/henryona/RiderProjects/TelegramBotCurry/MyTelegramBotFirstTryTo/MyTelegramBotFirstTryTo.csproj"
+          "/home/henryona/Documents/CurryBot/TelegramBotCurry/MyTelegramBotFirstTryTo/MyTelegramBotFirstTryTo.csproj": {
+            "projectPath": "/home/henryona/Documents/CurryBot/TelegramBotCurry/MyTelegramBotFirstTryTo/MyTelegramBotFirstTryTo.csproj"
           }
         }
       }
@@ -31,17 +28,11 @@
     }
   },
   "frameworks": {
-    "netcoreapp2.2": {
+    "netcoreapp3.0": {
       "dependencies": {
         "Microsoft.NET.Test.Sdk": {
           "target": "Package",
           "version": "[15.9.0, )"
-        },
-        "Microsoft.NETCore.App": {
-          "suppressParent": "All",
-          "target": "Package",
-          "version": "[2.2.0, )",
-          "autoReferenced": true
         },
         "NUnit3TestAdapter": {
           "target": "Package",
@@ -53,10 +44,21 @@
         }
       },
       "imports": [
-        "net461"
+        "net461",
+        "net462",
+        "net47",
+        "net471",
+        "net472",
+        "net48"
       ],
       "assetTargetFallback": true,
-      "warn": true
+      "warn": true,
+      "frameworkReferences": {
+        "Microsoft.NETCore.App": {
+          "privateAssets": "all"
+        }
+      },
+      "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
     }
   }
 }

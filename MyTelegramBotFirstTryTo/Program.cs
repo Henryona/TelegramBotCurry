@@ -37,6 +37,7 @@ namespace MyTelegramBotFirstTryTo
             var namesJson = "";
             try
             {
+                Console.WriteLine(CONSTANTS.CURRY_BOT_TOKEN_PATH);
                 token = System.IO.File.ReadAllText(CONSTANTS.CURRY_BOT_TOKEN_PATH)
                     .Replace("\n", "");
                 weatherToken = System.IO.File.ReadAllText(CONSTANTS.WEATHER_API_FILE_PATH)
@@ -45,9 +46,10 @@ namespace MyTelegramBotFirstTryTo
                     .Replace("\n", "");
                 namesJson = System.IO.File.ReadAllText(CONSTANTS.NAMES_JSON_PATH);
             }
-            catch
+            catch (Exception e)
             {
-                Console.WriteLine("No file with token or json!");
+                
+                Console.WriteLine("No file with token or json! " + e.Message);
                 return;
             }
             
@@ -73,11 +75,11 @@ namespace MyTelegramBotFirstTryTo
                     var keyboardMarkUp = new ReplyKeyBoardMarkup();
                     keyboardMarkUp.Keyboard = new KeyboardButton[][]
                     {
-                        new KeyboardButton[] {new KeyboardButton("curry привет"), new KeyboardButton("curry какой день недели")},
-                        new KeyboardButton[] {new KeyboardButton("curry какая погода в городе Москва"), new KeyboardButton("curry покажи новости") },
-                        new KeyboardButton[] {new KeyboardButton("curry нужна помощь"), new KeyboardButton("curry расскажи гороскоп") },
-                        new KeyboardButton[] {new KeyboardButton("curry покажи цитату"), new KeyboardButton("curry расскажи анекдот") },
-                        new KeyboardButton[] {new KeyboardButton("curry расскажи историю") },
+                        new KeyboardButton[] {new KeyboardButton("привет"), new KeyboardButton("какой день недели")},
+                        new KeyboardButton[] {new KeyboardButton("какая погода в городе Москва"), new KeyboardButton("покажи новости") },
+                        new KeyboardButton[] {new KeyboardButton("нужна помощь"), new KeyboardButton("расскажи гороскоп") },
+                        new KeyboardButton[] {new KeyboardButton("покажи цитату"), new KeyboardButton("расскажи анекдот") },
+                        new KeyboardButton[] {new KeyboardButton("расскажи историю") },
                     };
                     string keyboard = JsonConvert.SerializeObject(keyboardMarkUp);
                         

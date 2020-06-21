@@ -66,14 +66,19 @@ namespace MyTelegramBotFirstTryTo
         // формирование приветствия 
         public string MakeGreetings(string userName)
         {
-            // поиск совпадения никнейма и присваивание имени для образения к пользователю
+            // поиск совпадения никнейма и присваивание имени для обращения к пользователю
             string callName = userName;
             foreach (var uName in _idNames)
             {
                 if (userName == uName.Key)
                     callName = uName.Value;
             }
-            return ($"Приветствую, {callName} :)");
+            return (CONSTANTS.greet_variants[new Random().Next(0, CONSTANTS.greet_variants.Count)] + $"{callName} :)");
+        } // method MakeGreetings
+        
+        public string MakeHowAreYou()
+        {
+            return (CONSTANTS.how_are_you_variants[new Random().Next(0, CONSTANTS.greet_variants.Count)]);
         } // method MakeGreetings
 
         // получение новостей
