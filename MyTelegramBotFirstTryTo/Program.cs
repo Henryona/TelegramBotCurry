@@ -37,7 +37,6 @@ namespace MyTelegramBotFirstTryTo
             var namesJson = "";
             try
             {
-                Console.WriteLine(CONSTANTS.CURRY_BOT_TOKEN_PATH);
                 token = System.IO.File.ReadAllText(CONSTANTS.CURRY_BOT_TOKEN_PATH)
                     .Replace("\n", "");
                 weatherToken = System.IO.File.ReadAllText(CONSTANTS.WEATHER_API_FILE_PATH)
@@ -75,11 +74,10 @@ namespace MyTelegramBotFirstTryTo
                     var keyboardMarkUp = new ReplyKeyBoardMarkup();
                     keyboardMarkUp.Keyboard = new KeyboardButton[][]
                     {
-                        new KeyboardButton[] {new KeyboardButton("привет"), new KeyboardButton("какой день недели")},
+                        new KeyboardButton[] {new KeyboardButton("привет"), new KeyboardButton("какой день недели?")},
                         new KeyboardButton[] {new KeyboardButton("какая погода в городе Москва"), new KeyboardButton("покажи новости") },
                         new KeyboardButton[] {new KeyboardButton("нужна помощь"), new KeyboardButton("расскажи гороскоп") },
-                        new KeyboardButton[] {new KeyboardButton("покажи цитату"), new KeyboardButton("расскажи анекдот") },
-                        new KeyboardButton[] {new KeyboardButton("расскажи историю") },
+                        new KeyboardButton[] {new KeyboardButton("покажи цитату"), new KeyboardButton("расскажи историю") },
                     };
                     string keyboard = JsonConvert.SerializeObject(keyboardMarkUp);
                         

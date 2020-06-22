@@ -78,7 +78,7 @@ namespace MyTelegramBotFirstTryTo
         
         public string MakeHowAreYou()
         {
-            return (CONSTANTS.how_are_you_variants[new Random().Next(0, CONSTANTS.greet_variants.Count)]);
+            return (CONSTANTS.how_are_you_variants[new Random().Next(0, CONSTANTS.how_are_you_variants.Count)]);
         } // method MakeGreetings
 
         // получение новостей
@@ -120,12 +120,24 @@ namespace MyTelegramBotFirstTryTo
             var joke = JokesApi.getJokeOrStory(category);
             return joke;
         } // method MakeJoke
+        
+        public string MakeWork(string UserQuestion)
+        {
+            return (CONSTANTS.work_variants[new Random().Next(0, CONSTANTS.work_variants.Count)]);
+        } // method MakeWork
+        
+        public string MakeCompliment(string UserQuestion)
+        {
+            return (CONSTANTS.compliment_variants[new Random().Next(0, CONSTANTS.compliment_variants.Count)]);
+        } // method MakeWork
 
         // формирование информации для пользователя
         public string MakeInfo()
         {
             return CONSTANTS.INFO;
         } // method MakeInfo
+        
+        
 
 
         // тут настройка сообщений по расписанию, но телега добавила

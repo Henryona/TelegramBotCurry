@@ -40,19 +40,27 @@ namespace MyTelegramBotFirstTryTo
         public string getWeatherInCity(string city)
         {
             // запрос
+            var final_city = city;
             if (city.ToLower() == "москва")
-                city = "Москва, Россия";
+                final_city = "Москва, Россия";
             
-            var FINAL_URL = PRE_FINAL_API + city;
+            var FINAL_URL = PRE_FINAL_API + final_city;
             var Request = new RestRequest(FINAL_URL);
             var Response = RC.Get(Request);
             
             // парсим ответ, он в json-формате
             var Data = JsonConvert.DeserializeObject<WeatherData>(Response.Content);
             var Temp = (int) Data.current.temperature;
+            var weather_state = Data.current.weather_descriptions[0];
+            var weather_state_final = "";
             
-
-            return $"В городе {city.Substring(0, 1).ToUpper() + city.Substring(1, city.Length - 1)} сейчас {Data.current.weather_descriptions[0]}, температура воздуха {Temp}";
+            // тут переводы для погодных условий (ясно, пасмурно и т.д)
+            if (CONSTANTS.WeatherStateTranslates.ContainsKey(weather_state))
+                weather_state_final = CONSTANTS.WeatherStateTranslates[weather_state];
+            else
+                weather_state_final = weather_state;
+                
+            return $"В городе {city.Substring(0, 1).ToUpper() + city.Substring(1, city.Length - 1)} сейчас {weather_state_final}, температура воздуха {Temp}";
             
         } // method getWeatherInCity
 

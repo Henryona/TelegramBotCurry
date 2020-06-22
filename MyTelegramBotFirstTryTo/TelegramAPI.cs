@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Runtime.InteropServices;
 using RestSharp;
@@ -68,15 +69,23 @@ namespace MyTelegramBotFirstTryTo
         {
             var json = sendApiRequest("getUpdates", "offset=" + last_update_id);
             var apiResult = JsonConvert.DeserializeObject<ApiResult>(json);
-            var updates = apiResult.result;
-
-            foreach (var update in updates)
+            Update[] updates = {};
+            try
             {
-                // вывод для отладки
-                Console.WriteLine($"Получен апдейт {update.update_id}, " + 
-                                  $"сообщение от {update.message.from.first_name} " +
-                                  $"текст: {update.message.text}");
-                last_update_id = update.update_id + 1;
+                updates = apiResult.result;
+
+                foreach (var update in updates)
+                {
+                    // вывод для отладки
+                    Console.WriteLine($"Получен апдейт {update.update_id}, " +
+                                      $"сообщение от {update.message.from.first_name} " +
+                                      $"текст: {update.message.text}");
+                    last_update_id = update.update_id + 1;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Some exception: " + e);
             }
 
             return updates;

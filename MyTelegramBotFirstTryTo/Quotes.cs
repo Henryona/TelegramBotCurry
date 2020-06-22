@@ -23,7 +23,7 @@ namespace MyTelegramBotFirstTryTo
             // запрос цитаты
             var Request = new RestRequest(FINAL_URL);
             var Response = RC.Get(Request);
-            
+
             // парсим ответ, он в json-формате
             var Data = JsonConvert.DeserializeObject<QuoteData>(Response.Content);
             

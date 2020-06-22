@@ -23,6 +23,8 @@ namespace MyTelegramBotFirstTryTo
                 ["покажи цитату"] = MakeQuote,
                 ["расскажи анекдот"] = MakeJoke,
                 ["расскажи историю"] = MakeJoke,
+                ["что делаешь?"] = MakeWork,
+                ["ты милаха"] = MakeCompliment,
             };
         }
 
@@ -72,6 +74,16 @@ namespace MyTelegramBotFirstTryTo
             answers.Add(_methods.MakeJoke(userQuestion));
         }
         
+        private void MakeWork(string userQuestion, string userName, List<string> answers, List<string> listContent)
+        {
+            answers.Add(_methods.MakeWork(userQuestion));
+        }
+        
+        private void MakeCompliment(string userQuestion, string userName, List<string> answers, List<string> listContent)
+        {
+            answers.Add(_methods.MakeCompliment(userQuestion));
+        }
+        
 
         public (string answers,  List<string> listContent) Answer(string userQuestion, string userName)
         {
@@ -83,16 +95,22 @@ namespace MyTelegramBotFirstTryTo
             
             var answers = new List<string>();
             var listContent = new List<string>();
-
-            foreach (var variant in questions)
+            try
             {
-                userQuestion = userQuestion.ToLower();
-                if (userQuestion.Contains(variant.Key))
+                foreach (var variant in questions)
                 {
-                    variant.Value(userQuestion, userName, answers, listContent);
+                    userQuestion = userQuestion.ToLower();
+                    if (userQuestion.Contains(variant.Key))
+                    {
+                        variant.Value(userQuestion, userName, answers, listContent);
+                    }
                 }
             }
-            
+            catch (Exception e)
+            {
+                Console.WriteLine("Не надо посылать стикеры боту, так как: " + e);
+            }
+
             // ни одного ответа не удалось подобрать- был задан некорректный вопрос
             if (answers.Count == 0)
                 answers.Add(CONSTANTS.dontknow[new Random().Next(0, CONSTANTS.dontknow.Count)] );     
