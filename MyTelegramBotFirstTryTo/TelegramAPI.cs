@@ -77,7 +77,7 @@ namespace MyTelegramBotFirstTryTo
                 foreach (var update in updates)
                 {
                     // вывод для отладки
-                    Console.WriteLine($"Получен апдейт {update.update_id}, " +
+                    Console.WriteLine($"Для curry получен апдейт {update.update_id}, " +
                                       $"сообщение от {update.message.from.first_name} " +
                                       $"текст: {update.message.text}");
                     last_update_id = update.update_id + 1;

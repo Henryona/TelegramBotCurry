@@ -15,7 +15,10 @@ namespace MyTelegramBotFirstTryTo
             {
                 ["какой день недели?"] = MakeDay,
                 ["привет"] = MakeGreetings,
+                ["хей"] = MakeGreetings,
                 ["как твои дела?"] = MakeHowAreYou,
+                ["как дела?"] = MakeHowAreYou,
+                ["как ты?"] = MakeHowAreYou,
                 ["какая погода в городе"] = MakeTemperature,
                 ["покажи новости"] = MakeNews,
                 ["нужна помощь"] = MakeInfo,
@@ -24,7 +27,9 @@ namespace MyTelegramBotFirstTryTo
                 ["расскажи анекдот"] = MakeJoke,
                 ["расскажи историю"] = MakeJoke,
                 ["что делаешь?"] = MakeWork,
+                ["чем занимаешься?"] = MakeWork,
                 ["ты милаха"] = MakeCompliment,
+                ["ты симпатяга"] = MakeCompliment,
             };
         }
 
