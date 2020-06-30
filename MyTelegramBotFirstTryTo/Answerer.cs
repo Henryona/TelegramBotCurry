@@ -30,9 +30,15 @@ namespace MyTelegramBotFirstTryTo
                 ["чем занимаешься?"] = MakeWork,
                 ["ты милаха"] = MakeCompliment,
                 ["ты симпатяга"] = MakeCompliment,
+                ["/start"] = MakeFirstGreeting,
             };
         }
-
+        
+        private void MakeFirstGreeting(string userQuestion, string userName, List<string> answers, List<string> listContent)
+        {
+            answers.Add(_methods.MakeFirstGreeting());
+        }
+        
         private void MakeHowAreYou(string userQuestion, string userName, List<string> answers, List<string> listContent)
         {
             answers.Add(_methods.MakeHowAreYou());
@@ -56,7 +62,8 @@ namespace MyTelegramBotFirstTryTo
         private void MakeNews(string userQuestion, string userName, List<string> answers, List<string> listContent)
         {
             answers.Add(CONSTANTS.NEWS_ANSWER);
-            listContent.AddRange(_methods.MakeNews());
+            var news = _methods.MakeNews();
+            answers.Add(news[new Random().Next(0, news.Count)]);
         }
         
         private void MakeInfo(string userQuestion, string userName, List<string> answers, List<string> listContent)
@@ -113,7 +120,7 @@ namespace MyTelegramBotFirstTryTo
             }
             catch (Exception e)
             {
-                Console.WriteLine("Не надо посылать стикеры боту, так как: " + e);
+                Console.WriteLine("Curry получил какой-то хлам типа стикеров " + e);
             }
 
             // ни одного ответа не удалось подобрать- был задан некорректный вопрос

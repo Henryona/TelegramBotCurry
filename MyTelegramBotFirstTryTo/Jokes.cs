@@ -28,21 +28,29 @@ namespace MyTelegramBotFirstTryTo
 
         public string getJokeOrStory(string category)
         {
-            // запрос анекдота\истории
-            var Request = new RestRequest(PRE_FINAL_URL + category);
-            var Response = RC.Get(Request);
-            
-            // парсим ответ, он в xml формате
-            XmlSerializer serializer = new XmlSerializer(typeof(Root));
+            try
+            {
+                // запрос анекдота\истории
+                var Request = new RestRequest(PRE_FINAL_URL + category);
+                var Response = RC.Get(Request);
 
-            // у сервера проблемы с кодировкой - исправление
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            var encoding = Encoding.GetEncoding(1251);
-            var enc1251 = encoding.GetString(Response.RawBytes);
-            
-            var Data = (Root)serializer.Deserialize(new StringReader(enc1251));
-            
-            return Data.content;
+                // парсим ответ, он в xml формате
+                XmlSerializer serializer = new XmlSerializer(typeof(Root));
+
+                // у сервера проблемы с кодировкой - исправление
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                var encoding = Encoding.GetEncoding(1251);
+                var enc1251 = encoding.GetString(Response.RawBytes);
+
+                var Data = (Root) serializer.Deserialize(new StringReader(enc1251));
+
+                return Data.content;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ошибка при парсе ответа от api историй\\анекдотов: " + e);
+            }
+            return "Error_in_joke_api";
         } // method getJokeOrStory
         
         public Jokes()

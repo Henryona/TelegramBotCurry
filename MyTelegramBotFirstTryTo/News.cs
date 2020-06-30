@@ -38,13 +38,19 @@ namespace MyTelegramBotFirstTryTo
             var Request = new RestRequest(FINAL_URL);
             var Response = RC.Get(Request);
             var Data = JsonConvert.DeserializeObject<NewsData>(Response.Content);
-
-            // добавление новостей в цикле
-            foreach (var newsArticle in Data.articles)
+            try
             {
-                NewsList.Add($"Новость: {newsArticle.description}, ссылка: {newsArticle.url}");
+                // добавление новостей в цикле
+                foreach (var newsArticle in Data.articles)
+                {
+                    NewsList.Add($"Новость: {newsArticle.description}, ссылка: {newsArticle.url}");
+                }
             }
-                
+            catch (Exception e)
+            {
+                Console.WriteLine("Ошибка при парсе ответа от новостного api: " + e);
+                NewsList.Add( "Error_in_news_api");
+            }
             return NewsList;
         } // method getNews
     } // class News

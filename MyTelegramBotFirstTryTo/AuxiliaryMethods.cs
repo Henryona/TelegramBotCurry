@@ -30,7 +30,7 @@ namespace MyTelegramBotFirstTryTo
             
             // запрос к api с погодой
             var forecast = _weatherForecasts.getWeatherInCity(city);
-            return forecast;
+            return forecast != "Error_in_weather_api" ? forecast : "Может, просто в окно выглянешь? хватит лениться) \n (а вообще, ты, скорее всего, неверно вводишь город)";
         } // method MakeTemperature
 
         public static string FindValue(string question, string comparator, string goodRerurn)
@@ -85,7 +85,8 @@ namespace MyTelegramBotFirstTryTo
         public List<string> MakeNews()
         {
             var newsCollumn = _newsApi.getNews();
-            return newsCollumn;
+            return newsCollumn[0] != "Error_in_news_api" ? newsCollumn : new List<string>{"Что-то новости все какие-то страшные, ну их что ли ("};
+
         } // method MakeNews
 
         // получение гороскопа
@@ -97,7 +98,8 @@ namespace MyTelegramBotFirstTryTo
             // обращение к апи 
             var HoroscopeApi = new Horoscope();
             var horoscopeText = HoroscopeApi.getHororscopeBySign(signOfZodiac);
-            return horoscopeText;
+            return horoscopeText != "Error_in_horoscope_api" ? horoscopeText : "Не получается добыть ответ с сайтика с гороскопами, кажется, звёзды не сложились :с";
+
         } // method MakeHoroscope
 
         // получение цитаты
@@ -105,7 +107,7 @@ namespace MyTelegramBotFirstTryTo
         {
             var QuoteApi = new Quotes();
             var quote = QuoteApi.getRandonQuote();
-            return quote;
+            return quote != "Error_in_quote_api" ? quote : "Цитаты закончились (((((";
         } // method MakeQuote
         
         // получение анекдота или истории
@@ -118,7 +120,8 @@ namespace MyTelegramBotFirstTryTo
             // запрос к апи 
             var JokesApi = new Jokes();
             var joke = JokesApi.getJokeOrStory(category);
-            return joke;
+            return joke != "Error_in_joke_api" ? joke : "Не получается достать историю\\анекдотик с сайта :с";
+
         } // method MakeJoke
         
         public string MakeWork(string UserQuestion)
@@ -137,6 +140,11 @@ namespace MyTelegramBotFirstTryTo
             return CONSTANTS.INFO;
         } // method MakeInfo
         
+        // формирование начального привествия для пользователя
+        public string MakeFirstGreeting()
+        {
+            return CONSTANTS.FIRST_GREET_INFO;
+        } // method MakeInfo
         
 
 

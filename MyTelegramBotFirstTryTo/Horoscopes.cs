@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
@@ -68,24 +69,31 @@ namespace MyTelegramBotFirstTryTo
             var ms = new MemoryStream(Response.RawBytes);
             var Data = (Horo)serializer.Deserialize(ms);
 
-            // возвращаем гороскоп на нужный знак зодиака
-            switch (signOfZodiac)
+            try
             {
-                case "овен" : return Data.aries.today;
-                case "телец" : return Data.taurus.today;
-                case "близнецы" : return Data.gemini.today;
-                case "рак" : return Data.cancer.today;
-                case "лев" : return Data.leo.today;
-                case "дева" : return Data.virgo.today;
-                case "весы" : return Data.libra.today;
-                case "скорпион" : return Data.scorpio.today;
-                case "стрелец" : return Data.sagittarius.today;
-                case "козерог" : return Data.capricorn.today;
-                case "водолей" : return Data.aquarius.today;
-                case "рыбы" : return Data.pisces.today;
-                default : return CONSTANTS.UNKNOWN_ZODIAC;
-            } // switch (signOfZodiac)
-            
+                // возвращаем гороскоп на нужный знак зодиака
+                switch (signOfZodiac)
+                {
+                    case "овен": return Data.aries.today;
+                    case "телец": return Data.taurus.today;
+                    case "близнецы": return Data.gemini.today;
+                    case "рак": return Data.cancer.today;
+                    case "лев": return Data.leo.today;
+                    case "дева": return Data.virgo.today;
+                    case "весы": return Data.libra.today;
+                    case "скорпион": return Data.scorpio.today;
+                    case "стрелец": return Data.sagittarius.today;
+                    case "козерог": return Data.capricorn.today;
+                    case "водолей": return Data.aquarius.today;
+                    case "рыбы": return Data.pisces.today;
+                    default: return CONSTANTS.UNKNOWN_ZODIAC;
+                } // switch (signOfZodiac)
+            }
+            catch (Exception e)
+            {
+                return "Error_in_horoscope_api";
+            }
+
         } // method getHororscopeBySign
     } //class Horoscope
 }

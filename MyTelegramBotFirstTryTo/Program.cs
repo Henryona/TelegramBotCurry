@@ -61,34 +61,46 @@ namespace MyTelegramBotFirstTryTo
             {
                 // задержка в одну секунду, чтобы не постоянно обращаться к апи телеграма
                 Thread.Sleep(1000);
-                
-                // получение апдейтовret
-                var Updates = API.GetUpdates();
-                foreach (var update in Updates)
+                try
                 {
-                    var userName = update.message.from.first_name;
-                    var Question = update.message.text;
-                    var (answer, listContent) = potentialQuestions.Answer(Question, userName);
-                       
-                    // кнопочки для телеграма
-                    var keyboardMarkUp = new ReplyKeyBoardMarkup();
-                    keyboardMarkUp.Keyboard = new KeyboardButton[][]
+                    // получение апдейтовret
+                    var Updates = API.GetUpdates();
+                    foreach (var update in Updates)
                     {
-                        new KeyboardButton[] {new KeyboardButton("нужна помощь"), new KeyboardButton("какой день недели?")},
-                        new KeyboardButton[] {new KeyboardButton("какая погода в городе Москва"), new KeyboardButton("покажи новости") },
-                        new KeyboardButton[] {new KeyboardButton("покажи цитату"), new KeyboardButton("расскажи анекдот") },
-                        new KeyboardButton[] {new KeyboardButton("расскажи историю") },
-                    };
-                    string keyboard = JsonConvert.SerializeObject(keyboardMarkUp);
-                        
-                    //  большая часть ответов - обычный string, посылаем его
-                    if (!string.IsNullOrEmpty(answer))
-                        API.sendMessage(answer, update.message.chat.id, keyboard); 
-                    // некоторые ответы записаны в список, посылаем все его элементы
-                    if (listContent.Count != 0)
-                        API.sendMessage(listContent, update.message.chat.id, keyboard);
+                        var userName = update.message.from.first_name;
+                        var Question = update.message.text;
+                        var (answer, listContent) = potentialQuestions.Answer(Question, userName);
+
+                        // кнопочки для телеграма
+                        var keyboardMarkUp = new ReplyKeyBoardMarkup();
+                        keyboardMarkUp.Keyboard = new KeyboardButton[][]
+                        {
+                            new KeyboardButton[]
+                                {new KeyboardButton("нужна помощь"), new KeyboardButton("какой день недели?")},
+                            new KeyboardButton[]
+                            {
+                                new KeyboardButton("какая погода в городе Москва"), new KeyboardButton("покажи новости")
+                            },
+                            new KeyboardButton[]
+                                {new KeyboardButton("покажи цитату"), new KeyboardButton("расскажи анекдот")},
+                            new KeyboardButton[] {new KeyboardButton("расскажи историю")},
+                        };
+                        string keyboard = JsonConvert.SerializeObject(keyboardMarkUp);
+
+                        //  большая часть ответов - обычный string, посылаем его
+                        if (!string.IsNullOrEmpty(answer))
+                            API.sendMessage(answer, update.message.chat.id, keyboard);
+                        // некоторые ответы записаны в список, посылаем все его элементы
+                        if (listContent.Count != 0)
+                            API.sendMessage(listContent, update.message.chat.id, keyboard);
+                    }
                 }
-            }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Ошибка при попытке ответить на некорретный запрос");
+                }
+            } // circle while
+            
             
         } // method Main
     } // class Program

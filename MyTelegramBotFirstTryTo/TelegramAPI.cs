@@ -67,25 +67,27 @@ namespace MyTelegramBotFirstTryTo
         // получение апдейтов
         public Update[] GetUpdates()
         {
-            var json = sendApiRequest("getUpdates", "offset=" + last_update_id);
-            var apiResult = JsonConvert.DeserializeObject<ApiResult>(json);
             Update[] updates = {};
             try
             {
+                var json = sendApiRequest("getUpdates", "offset=" + last_update_id);
+                var apiResult = JsonConvert.DeserializeObject<ApiResult>(json);
+                //updates= {};
                 updates = apiResult.result;
-
+                //Console.WriteLine(json + "\n");
                 foreach (var update in updates)
                 {
+                    last_update_id = update.update_id + 1;
                     // вывод для отладки
                     Console.WriteLine($"Для curry получен апдейт {update.update_id}, " +
                                       $"сообщение от {update.message.from.first_name} " +
                                       $"текст: {update.message.text}");
-                    last_update_id = update.update_id + 1;
+                    //last_update_id = update.update_id + 1;
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Some exception: " + e);
+                Console.WriteLine("Что-то пошло не так при попытке прочитать содержимое апдейта: " + e);
             }
 
             return updates;

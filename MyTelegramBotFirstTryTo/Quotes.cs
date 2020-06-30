@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 using RestSharp;
 
@@ -20,15 +21,22 @@ namespace MyTelegramBotFirstTryTo
         // получение цитаты
         public string getRandonQuote()
         {
-            // запрос цитаты
-            var Request = new RestRequest(FINAL_URL);
-            var Response = RC.Get(Request);
+            try
+            {
+                // запрос цитаты
+                var Request = new RestRequest(FINAL_URL);
+                var Response = RC.Get(Request);
 
-            // парсим ответ, он в json-формате
-            var Data = JsonConvert.DeserializeObject<QuoteData>(Response.Content);
-            
-            return Data.quoteText + " \n" + Data.quoteAuthor;
-            ;
+                // парсим ответ, он в json-формате
+                var Data = JsonConvert.DeserializeObject<QuoteData>(Response.Content);
+
+                return Data.quoteText + " \n" + Data.quoteAuthor;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ошибка при парсе ответа от api цитат: " + e);
+            }
+            return "Error_in_quote_api";
         } // method getRandonQuote
         public Quotes()
         {}

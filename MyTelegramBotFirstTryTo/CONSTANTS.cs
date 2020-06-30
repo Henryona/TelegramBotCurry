@@ -30,7 +30,7 @@ namespace MyTelegramBotFirstTryTo
         public static string NEWS_API_FILE_PATH =
             Environment.GetEnvironmentVariable("HOME") + "/Documents/curryBot/API_KEY_NEWS";
 
-        public static string NEWS_ANSWER = "Вот тут немного актуальных новостей";
+        public static string NEWS_ANSWER = "Нашёл такую новость:";
 
         // токен и урл телеграм апи
         public static string CURRY_BOT_TOKEN_PATH =
@@ -49,7 +49,7 @@ namespace MyTelegramBotFirstTryTo
         public static string API_URL_HORO = "https://ignio.com/r/export/utf/xml/daily/";
         public static string API_HORO_TYPE = "cook";
         public static string API_XML = ".xml";
-        public static string UNKNOWN_ZODIAC = "скажи мне, кто ты по гороскопу!";
+        public static string UNKNOWN_ZODIAC = "Таких знаков зодиака еще не открыли)";
 
         // хелп для бота
         public static string INFO =
@@ -65,6 +65,13 @@ namespace MyTelegramBotFirstTryTo
             "\" расскажи анекдот \" \n \" расскажи историю \" \n";
 
         public int CHAT_ID = -258099164;
+
+        public static string FIRST_GREET_INFO =
+            "Привет! Я Curry, рад встрече! Я умею рассказывать истории, цитаты, покажу погоду и новости. \n" +
+            "Но это не все мои способности, я учусь новому. Если хочешь актуальный список, \n " +
+            "скажи мне \"нужна помощь\" и я приду на выручку :) \n" +
+            "возможно, Ты захочешь заглянуть сюда: https://github.com/Henryona/TelegramBotCurry . \n" +
+            "Хорошего дня!";
 
         public static List<string> greet_variants = new List<string>() {"Приветствую, ", "О, привет, ", "Хей, "};
         public static List<string> dontknow = new List<string>() {"Что ты пытаешься сказать?", "Я не понимаю", "Что?", "А?"};
@@ -112,6 +119,7 @@ namespace MyTelegramBotFirstTryTo
             ["Heavy freezing drizzle"] = "сильная замерзающая морось",
             ["Patchy light rain"] = "местами небольшой дождь",
             ["Light rain"] = "небольшой дождь",
+            ["Light Rain"] = "небольшой дождь",
             ["Moderate rain at times"] = "временами умеренный дождь",
             ["Moderate rain"] = "умеренный дождь",
             ["Heavy rain at times"] = "временами сильный дождь",
